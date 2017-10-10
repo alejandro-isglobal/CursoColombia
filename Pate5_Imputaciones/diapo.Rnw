@@ -1,0 +1,174 @@
+% this is a simplified version of 
+% https://github.com/yihui/knitr/blob/master/inst/examples/knitr-beamer.Rnw
+\documentclass{beamer}
+\begin{document}
+<<setup, include=FALSE>>=
+# smaller font size for chunks
+opts_chunk$set(size = 'footnotesize')
+@
+\title{Introducci\'on a la Gen\'omica \\ UNAL nov 2017}
+\author{Alejandro Caceres \\ ISGlobal, Barcelona}
+
+
+\maketitle
+% very important to use option [fragile] for frames containing code output!
+
+
+\begin{frame}[fragile]
+\frametitle{Faseado e Imputaciones}
+
+\begin{itemize}
+
+\item {\tt Faseado}: Determinamos a que cromosoma pertence cada alelo 
+
+\item {\tt Imputaciones}: Determinamos los genotipos de SNPs no genotipados en la muestra 
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Fase}
+La genotipaci\'on de SNPs se hece individualmente por lo que pierde la informaci\'on de
+a que cromosome pertenece un alelo dado. Un sujeto A/C para SNP1 y A/T para SNP2 puede tener las siguientes configuraciones  
+
+\begin{table}[]
+\centering
+\begin{tabular}{c|cc|c}
+      &SNP1& &SNP2 & 
+chr1: &C   &-&  A& \\
+chr2: &A   &-&  T& o \\
+& & & &\\
+chr1: &C   &-&  T& \\
+chr2: &A   &-&  A&  \\
+\end{tabular}
+
+\end{table}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Fase con trios}
+Los datos de trios ayudan a resolver la fase
+\begin{table}[]
+\centering
+\begin{tabular}{c|cc|c}
+      &SNP1& &SNP2 & & SNP3 & & SNP4\\
+hijo chr padre: &C   &-&  A/T&-& G & G/A\\
+hijo chr madre: &C   &-&  A/T&-& G & G/A\\ 
+& & & &\\
+padre chr1: &C/A   &-&  T&-& G/C & G/A\\
+padre chr2: &C/A   &-&  T&-& G/C & G/A\\ 
+& & & &\\
+madre chr1: &C   &-&  A/T&-& G & G/A \\
+madre chr2: &C   &-&  A/T&-& G & G/A\\ 
+& & & &\\
+com\'un chr: & C  &-&  T &-& G & G\\
+menos com\'un chr & C  &-&  T &-& G & A\\
+
+\end{tabular}
+
+\end{table}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Fase con haplotipos de referencia}
+\begin{table}[]
+\centering
+\begin{tabular}{c|cc|c}
+      &SNP1& &SNP2 & & SNP3 & & SNP4\\
+chr 1: &C   &-&  A/T&-& G & G/A\\
+chr 2: &C   &-&  A/T&-& G & G/A\\ 
+& & & &\\
+com\'un chr: & C  &-&  T &-& G & G\\
+com\'un chr: & C  &-&  A &-& G & A\\
+\end{tabular}
+Entonces los haplotipos se mapean a los mas comunes en la poblaci\'on de referencia
+\end{table}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{SHAPEIT}
+
+\begin{itemize}
+\item algoritmo que intenta estimar la fase de forma probabilistica
+\item Se uso en el HapMap y en los 1000 Genomas 
+\item acepta trios 
+\end{itemize}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=3cm,with=3cm]{shapeit.jpg}
+\end{center}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Imputaci\'on}
+La imputaci\'on es un modelo probabilistico que predice cual ser\'ia los valores de un
+SNP para cada sujeto de nuestra muestra, si hemos genotipado otro SNP vecino que
+pretenezca al mismo bloque de LD.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=3cm,with=3cm]{scenarioA.png}
+\end{center}
+\end{figure}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Imputaciones}
+
+Hay dos softwares recomendados para hacer las imputaciones
+
+\begin{itemize}
+\item MACH: {\scriptsize {\tt http://www.sph.umich.edu/csg/abecasis/MACH/tour/imputation.html}}
+de la universidad de Michigan USA
+\item IMPUTE2: {\tt http://mathgen.stats.ox.ac.uk/impute/impute\_v2.html}
+de la universidad de Oxford UK
+\end{itemize}
+
+Ambos corren en plataforma LINUX por linea de comandos. Por el momento no haremos practicas sobre esto, pero en la parte de Amazon computing veremos como crear un servidor LINIUX y ejecutar comandos. 
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Imputaciones}
+IMPUTE2 usa SHEPEIT para prefasear los datos
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=3cm,with=3cm]{impute.png}
+\end{center}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Imputaciones}
+La universidad de Michigan ofrece un servidor para hacer las imputaciones con diferentes paneles de referencia
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=3cm,with=3cm]{michigan.png}
+\end{center}
+\end{figure}
+
+\begin{itemize}
+\item Tienen gu\'ias detalladas para procesar los datos antes de subirlos
+\item Es gratis pero va hay que ponerse en la cola 
+\end{itemize}
+
+\end{frame}
+
+
+\end{document}

@@ -1,0 +1,110 @@
+% this is a simplified version of 
+% https://github.com/yihui/knitr/blob/master/inst/examples/knitr-beamer.Rnw
+\documentclass{beamer}
+\begin{document}
+<<setup, include=FALSE>>=
+# smaller font size for chunks
+opts_chunk$set(size = 'footnotesize')
+@
+\title{Introducci\'on a la Gen\'omica \\ UNAL nov 2017}
+\author{Alejandro Caceres \\ ISGlobal, Barcelona}
+
+
+\maketitle
+
+% very important to use option [fragile] for frames containing code output!
+\begin{frame}[fragile]
+\frametitle{Metodos Multidimensionales}
+los que mas destacan son el an\'alis de compontentes principales (PCA) y el escalamiento multidimensional (MDS)
+\begin{itemize}
+\item Miden la variabilidad gen\'etica en una muestra de individuos
+\item Determinan la distancia genetic antre poblaciones
+\item Se pueden usar para determinar ancestr\'ia 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Analisis de Componentes Principales}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=6.5cm,with=6.5cm]{pca1000g.jpg}
+\end{center}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Analisis de Componentes Principales}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=6.5cm,with=6.5cm]{eurpca.jpeg}
+\end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Metodos Multidimensionales}
+
+Producen variables que son combinaciones lineales de los SNPs de tal forma que
+\begin{itemize}
+\item explican la mayor variabilidad posible (PCA). SNPstats and PLINK
+\item explican la mayor distancia posible entre individios (MDS). PLINK
+\end{itemize}
+
+El n\'umero de variables que se calculan detende de que tanto queramos explicar los datos.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{snpStats}
+Veamos como se calcula PCA en SNPstats
+
+<<plot1,fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
+library(snpStats)
+load("NewsnpsSNPstats.RData")
+xxmat <- xxt(NewsnpsSNPstats)
+evv <- eigen(xxmat)
+pcs <- evv$vectors[,1:2]
+plot(pcs)
+@
+el c\'alculo de PCA tarda mucho si son datos de todo el genoma. 
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{snpStats}
+Podemos ver que para esta regi\'on el PCA discrimina poblaciones
+<<plot2, fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
+ids<-read.table("20130606_g1k.ped", sep="\t", header=TRUE)
+
+rownames(ids)<-ids$Individual.ID
+pops<-ids[rownames(NewsnpsSNPstats),]$Population
+
+plot(pcs, col=as.numeric(pops), pch=16)
+legend("topright", legend=levels(pops), pch=16, col=1:length(levels(pops)), cex=0.7)
+@
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{PLINK}
+
+Debido a que los analisis multivariantes son constosos computacionalmente es mejor usar codigo compilado
+PLINK.
+
+\begin{verbatim}
+plink --bfile  mydata --pca --out mydata
+plink --bfile  mydata --mds-plot --out mydata --neighbour 1 15
+\end{verbatim}
+Los resultados deben ser muy similares.
+--neighbour 1 15 calcula las distancias del primer al 15 vecinos mas cercanos para determinar si un individuo es un outlier 
+en terminos de ancestr\'ia 
+
+\end{frame}
+
+\end{document}
