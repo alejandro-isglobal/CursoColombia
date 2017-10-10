@@ -1,0 +1,393 @@
+% this is a simplified version of 
+% https://github.com/yihui/knitr/blob/master/inst/examples/knitr-beamer.Rnw
+\documentclass{beamer}
+\begin{document}
+<<setup, include=FALSE>>=
+# smaller font size for chunks
+opts_chunk$set(size = 'footnotesize')
+@
+\title{Introducci\'on a la Gen\'omica \\ UNAL nov 2017}
+\author{Alejandro Caceres \\ ISGlobal, Barcelona}
+
+
+\maketitle
+
+% very important to use option [fragile] for frames containing code output!
+
+\begin{frame}[fragile]
+\frametitle{datos de SNPs}
+Cada programa tiene un formato diferente y es importante saber cambiar de formato
+\begin{itemize}
+\item {\tt PLINK}: Es un programa compilado, corre por la linea de comandos y es muy rapido. Es particularmente util para manejar las bases de datos en si, exlcuir sujetos, seleccionar SNPs. No tiene la versatilidad de R para explorar graficos, crear nuevas funciones o hacer graficos, pero es muy utilizado y con experiencia en computacion facil de hacer pipelines.
+
+\item {\tt snpStats} (bioconductor): Tiene varias funciones para ver la estructura de los datos (linakage-disequilibium, pca, Fst), y hace analisis de asociacion en base de datos grandes, pero no prueba diferentes modelo de herencia. Usa un fromato especial (raw data).
+
+\item {\tt snpAssoc} (r-cran): versatil para probar diferentes modelos de herencia, pero las funciones no estan optimizadas para menejar matrices muy grandes. 
+
+\item {\tt tabix} : un programa para gestionar datos en formato VCF usado por los 1000 genomas  
+ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{PLINK}
+Es un programa por linea de comandos desarrollado por Chrostopher Chang.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=3cm,with=3cm]{plink.png}
+\end{center}
+\end{figure}
+
+Tiene una documentaci\'on muy completa
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{PLINK}
+PLINK tiene dos formatos
+\begin{itemize}
+\item {\tt .bed, .bim, .fam}: es el mas usado y separa la informaci\'on en tres archivos genotipos (.bed), anotacion de SNPs (.bim), fenotipos (.fam)  
+
+\item {\tt .ped, .map}: .ped son los .fam en las primeras columnas y .map es una versi\'on con menos info que .bim
+ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{PLINK}
+
+Para cambiar los cambiar el formatos de misDatos.ped y misDatos.map a misDatos.bed, misDatos.bim y misDatos.fam
+
+\begin{verbatim}
+plink --file misDatos --make-bed --out misDatos
+\end{verbatim}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=3cm,with=3cm]{command.png}
+\end{center}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Datos de SNPs}
+
+Despues del preprocesamiento de los datos, los datos que se obtienen es de un gentipo por individuo. Si tenemos 1 millon de SNPs y 1000 individuos, esto es tipicamente una matriz de $10^3 \times 10^6$. Hay diferentes formas de organizar estos datos
+ 
+\begin{verbatim}
+        rs33  rs36  rs43
+NA090   A/C   G/G   T/A ...
+NA091   A/A   G/G   T/A ...
+NA092   A/A   G/C   T/A ...
+NA093   A/C   C/C   A/A ...
+...
+\end{verbatim}
+Una forma eficiante es llamar 0:homocigoto, 1:heterocigoto y 2:heterocigoto variante.
+
+\begin{itemize}
+\item para SNP=rs33 el alelo mas frecuente es A y el menos frecuente es C. \newline Entonces:  A/A=0, A/C=1, CC=2
+\item para SNP=rs36 el alelo mas frecuente es G y el menos frecuente es C. \newline Entonces:  G/G=0, G/C=1, CC=2
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Datos tipicos de SNPs (PLINK) formato bed}
+\begin{itemize}
+\item Datos de los genotipos (datos.bed)
+\begin{verbatim}
+        rs33 rs36 rs43
+NA090   1    0    1 ...
+NA091   0    0    1 ...
+NA092   0    1    1 ...
+NA093   1    2    2 ...
+...
+\end{verbatim}
+
+\item Datos con la anotacion de SNPs (datos.bim)
+\begin{verbatim}
+chr snp   mor   pos   allele1 allele2
+1   rs33  0     1034  A       C
+1   rs36  0     2000  G       C
+1   rs43  0     10056 T       A 
+...
+\end{verbatim}
+
+\item Datos con los fenotipos (datos.fam)
+\begin{verbatim}
+ID  FAMID sex asthma  BMI-z
+NA090 1   1    1      1.2
+NA091 1   1    0      1.5
+NA092 2   0    0      0.9
+NA093 2   0    1      1
+\end{verbatim}
+
+\end{itemize}
+
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+\frametitle{SNPstats}
+Es un programa en R (bioconductor)
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=3cm,with=3cm]{snpstats.png}
+\end{center}
+\end{figure}
+
+tiene la ventaja de que esta en ambiente R y se pueden usar otros paquetes de bioconductor
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{SNPstats}
+
+se instalala como desde R por medio de los comandos
+
+<<eval=FALSE>>=
+source("https://bioconductor.org/biocLite.R")
+biocLite("snpStats")
+@
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{SNPstats}
+
+se carga con 
+
+<<eval=FALSE>>=
+library("snpStats")
+@
+
+puede leer datos de PLINK (formato .bed) mediante la funci\'on 
+
+<<eval=FALSE>>=
+snp<-read.plink(misDatos)
+@
+
+se pueden guardar como binarios de R snp.RData
+<<eval=FALSE>>=
+save(snp, file="snp.RData")
+@
+
+tambi\'en se pueden guardar datos de snpStats en PLINK con {\tt write.plink}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{SNPstats}
+
+se pueden cargar los binarios snp.RData
+<<eval=FALSE>>=
+load("snp.RData")
+@
+
+<<snpStats>>=
+names(snp.RData)
+snp$genotypes
+head(snp$fam)
+head(snp$map)
+@
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{1000 Genomes}
+Repositorio de datos de los 1000 genomas donde se pueden descargar los datos de 2504 individuos
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=3cm,with=3cm]{home1k.png}
+\end{center}
+\end{figure}
+Hay un servidor ftp para descargar datos 
+Los archivos son enormes, pero se puden leer por regiones con Tabix
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+\frametitle{1000 Genomes}
+Tambien hay un browser para bajar datos de regiones \begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=3cm,with=3cm]{mapt.png}
+\end{center}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{1000 Genomes}
+MAPT
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=3cm,with=3cm]{gettvcf.png}
+\end{center}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{1000 Genomes}
+Formato
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=3cm,with=3cm]{cvf1.png}
+\end{center}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{1000 Genomes}
+Formato
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=3cm,with=3cm]{cvf2.png}
+\end{center}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Bioconductor}
+Variant Annotation
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=3cm,with=3cm]{variantaanot.png}
+\end{center}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{VCF in R}
+
+se pueden cargar los binarios snp.RData
+<<eval=FALSE>>=
+source("http://bioconductor.org/biocLite.R")
+biocLite("VariantAnnotation")
+@
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Bioconductor}
+Variant annotation
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=3cm,with=3cm]{vineta.png}
+\end{center}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{VCF in R}
+
+<<>>=
+library(VariantAnnotation)
+fl<-"17.43921017-43972966.ALL.chr17.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf"
+vcf <- readVcf(fl, "hg19")
+genos<-geno(vcf)
+names(genos)
+dim(genos$GT)
+genos$GT[1:5,1:5]
+@
+
+Si el archivo es grande readVcf permite leer s\'olo regiones de interes
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{VCF in R}
+
+Los genotipos en formato 0,1,2 pueden ser encontrados en $genos\$DS$.
+
+Si no se puede entonces se puede calcular asi
+
+<<>>=
+snps<-genos$GT
+snps[snps=="0|0"]<-0
+snps[snps=="1|1"]<-2
+snps[snps!=0 & snps !=2]<-1
+snps[1:5,1:5]
+save(snps, file="snpsMAPT.RData")
+@
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{VCF in snpStats}
+snpStats usa formato 1,2,3 para genotipos y el 0 para missing
+<<>>=
+library(snpStats)
+snpsnew<-t(snps)
+snpsnew[snps=="0"] <- 1
+snpsnew[snps=="1"] <- 2
+snpsnew[snps=="2"] <- 3
+
+snpsSNPstats <- new("SnpMatrix", snpsnew)
+print(as(snpsSNPstats[1:5,1:5], 'character'))
+save(snpsSNPstats, file="snpsSNPstats.RData")
+@
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{1000 Genomes}
+Los datos de los 1000 genomas (y HapMap)tambien est\'an en formato PLINK por chromosomas
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[height=3cm,with=3cm]{plink1kgenomes.png}
+\end{center}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{PLINK a VCF}
+\begin{itemize}
+\item los comandos PLINK puden usar formato VCF
+\item tambi\'en se puede convertir .bed .bim .fam a formato a VCF y vise-versa
+\end{itemize}
+
+\begin{verbatim}
+acaceres@IMW00680:~$ plink --bfile [filename prefix] --recode vcf --out [VCF prefix]
+acaceres@IMW00680:~$ plink --vcf [VCF filename] --out [.bed/.bim/.fam prefix]
+\end{verbatim}
+
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Ejercicio}
+\begin{itemize}
+\item Descargar datos de los 1000 Genomas en PLINK 
+\item leerlos en snpStats
+\item si PLINK est\'a instalado convertirlos en VCF
+\item leerlos en snpStats
+\end{itemize}
+\end{frame}
+
+\end{document}
