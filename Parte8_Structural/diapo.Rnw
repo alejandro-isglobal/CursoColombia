@@ -35,4 +35,14 @@ hist(x,main='')
 @
 \end{frame}
 
+
+
+\begin{frame}[fragile] 
+\frametitle{SNP (Single Nucleotide Polymorphism)}
+%\includegraphics[height=6.5cm,with=6.5cm]{snp.pdf}
+\includegraphics[width=.45\linewidth]{snp.pdf} 
+
+\end{frame}
+
+
 \end{document}
