@@ -1,0 +1,14 @@
+\frametitle{Imputaciones}
+La universidad de Michigan ofrece un servidor para hacer las imputaciones con diferentes paneles de referencia
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=.5\linewidth]{michigan.png}
+\end{center}
+\end{figure}
+
+\begin{itemize}
+\item Tienen gu\'ias detalladas para procesar los datos antes de subirlos
+\item Es gratis pero va hay que ponerse en la cola
+\end{itemize}
+
