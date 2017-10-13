@@ -1,0 +1,7 @@
+\frametitle{Ejercicio}
+\begin{itemize}
+\item Descargar datos de los 1000 Genomas en PLINK
+\item leerlos en snpStats
+\item si PLINK est\'a instalado convertirlos en VCF
+\item leerlos en snpStats
+\end{itemize}

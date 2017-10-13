@@ -1,11 +1,59 @@
 % this is a simplified version of 
 % https://github.com/yihui/knitr/blob/master/inst/examples/knitr-beamer.Rnw
-\documentclass{beamer}
+\documentclass{beamer}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
-<<setup, include=FALSE>>=
-# smaller font size for chunks
-opts_chunk$set(size = 'footnotesize')
-@
+
 \title{Introducci\'on a la Gen\'omica \\ UNAL nov 2017}
 \author{Alejandro Caceres \\ ISGlobal, Barcelona}
 
@@ -181,10 +229,14 @@ tiene la ventaja de que esta en ambiente R y se pueden usar otros paquetes de bi
 
 se instalala como desde R por medio de los comandos
 
-<<eval=FALSE>>=
-source("https://bioconductor.org/biocLite.R")
-biocLite("snpStats")
-@
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{source}\hlstd{(}\hlstr{"https://bioconductor.org/biocLite.R"}\hlstd{)}
+\hlkwd{biocLite}\hlstd{(}\hlstr{"snpStats"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 \end{frame}
 
 
@@ -193,20 +245,36 @@ biocLite("snpStats")
 
 se carga con 
 
-<<library>>=
-library("snpStats")
-@
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hlstd{(}\hlstr{"snpStats"}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: survival}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: Matrix}}\end{kframe}
+\end{knitrout}
 
 puede leer datos de PLINK (formato .bed) mediante la funci\'on 
 
-<<eval=FALSE>>=
-snp<-read.plink(misDatos)
-@
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{snp}\hlkwb{<-}\hlkwd{read.plink}\hlstd{(misDatos)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 se pueden guardar como binarios de R snp.RData
-<<eval=FALSE>>=
-save(snp, file="snp.RData")
-@
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{save}\hlstd{(snp,} \hlkwc{file}\hlstd{=}\hlstr{"snp.RData"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 tambi\'en se pueden guardar datos de snpStats en PLINK con {\tt write.plink}
 \end{frame}
@@ -216,13 +284,26 @@ tambi\'en se pueden guardar datos de snpStats en PLINK con {\tt write.plink}
 \frametitle{SNPstats}
 
 se pueden cargar los binarios {\tt snp.RData}
-<<loadData>>=
-load("datos/snp.RData")
-@
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{load}\hlstd{(}\hlstr{"datos/snp.RData"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
-<<snpStats>>=
-snp
-@
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{snp}
+\end{alltt}
+\begin{verbatim}
+## A SnpMatrix with  1500 rows and  439 columns
+## Row names:  1 ... 1500 
+## Col names:  1 ... 439
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 \end{frame}
 
@@ -306,10 +387,14 @@ Paquete Variant Annotation para leer datos VCF
 \frametitle{VCF in R}
 
 se pueden cargar los binarios snp.RData
-<<eval=FALSE>>=
-source("http://bioconductor.org/biocLite.R")
-biocLite("VariantAnnotation")
-@
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{source}\hlstd{(}\hlstr{"http://bioconductor.org/biocLite.R"}\hlstd{)}
+\hlkwd{biocLite}\hlstd{(}\hlstr{"VariantAnnotation"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 \end{frame}
 
 
@@ -328,15 +413,19 @@ Variant annotation
 \begin{frame}[fragile]
 \frametitle{VCF in R}
 
-<<eval=FALSE>>=
-library(VariantAnnotation)
-fl<-"17.43921017-43972966.ALL.chr17.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf"
-vcf <- readVcf(fl, "hg19")
-genos<-geno(vcf)
-names(genos)
-dim(genos$GT)
-genos$GT[1:5,1:5]
-@
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hlstd{(VariantAnnotation)}
+\hlstd{fl}\hlkwb{<-}\hlstr{"17.43921017-43972966.ALL.chr17.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf"}
+\hlstd{vcf} \hlkwb{<-} \hlkwd{readVcf}\hlstd{(fl,} \hlstr{"hg19"}\hlstd{)}
+\hlstd{genos}\hlkwb{<-}\hlkwd{geno}\hlstd{(vcf)}
+\hlkwd{names}\hlstd{(genos)}
+\hlkwd{dim}\hlstd{(genos}\hlopt{$}\hlstd{GT)}
+\hlstd{genos}\hlopt{$}\hlstd{GT[}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{,}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{]}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Si el archivo es grande readVcf permite leer s\'olo regiones de interes
 \end{frame}
@@ -350,14 +439,18 @@ Los genotipos en formato 0,1,2 pueden ser encontrados en $genos\$DS$.
 
 Si no se puede entonces se puede calcular asi
 
-<<eval=FALSE>>=
-snps<-genos$GT
-snps[snps=="0|0"]<-0
-snps[snps=="1|1"]<-2
-snps[snps!=0 & snps !=2]<-1
-snps[1:5,1:5]
-save(snps, file="snpsMAPT.RData")
-@
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{snps}\hlkwb{<-}\hlstd{genos}\hlopt{$}\hlstd{GT}
+\hlstd{snps[snps}\hlopt{==}\hlstr{"0|0"}\hlstd{]}\hlkwb{<-}\hlnum{0}
+\hlstd{snps[snps}\hlopt{==}\hlstr{"1|1"}\hlstd{]}\hlkwb{<-}\hlnum{2}
+\hlstd{snps[snps}\hlopt{!=}\hlnum{0} \hlopt{&} \hlstd{snps} \hlopt{!=}\hlnum{2}\hlstd{]}\hlkwb{<-}\hlnum{1}
+\hlstd{snps[}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{,}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{]}
+\hlkwd{save}\hlstd{(snps,} \hlkwc{file}\hlstd{=}\hlstr{"snpsMAPT.RData"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 
 \end{frame}
@@ -366,17 +459,21 @@ save(snps, file="snpsMAPT.RData")
 \begin{frame}[fragile]
 \frametitle{VCF in snpStats}
 snpStats usa formato 1,2,3 para genotipos y el 0 para missing
-<<eval=FALSE>>=
-library(snpStats)
-snpsnew<-t(snps)
-snpsnew[snps=="0"] <- 1
-snpsnew[snps=="1"] <- 2
-snpsnew[snps=="2"] <- 3
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hlstd{(snpStats)}
+\hlstd{snpsnew}\hlkwb{<-}\hlkwd{t}\hlstd{(snps)}
+\hlstd{snpsnew[snps}\hlopt{==}\hlstr{"0"}\hlstd{]} \hlkwb{<-} \hlnum{1}
+\hlstd{snpsnew[snps}\hlopt{==}\hlstr{"1"}\hlstd{]} \hlkwb{<-} \hlnum{2}
+\hlstd{snpsnew[snps}\hlopt{==}\hlstr{"2"}\hlstd{]} \hlkwb{<-} \hlnum{3}
 
-snpsSNPstats <- new("SnpMatrix", snpsnew)
-print(as(snpsSNPstats[1:5,1:5], 'character'))
-save(snpsSNPstats, file="snpsSNPstats.RData")
-@
+\hlstd{snpsSNPstats} \hlkwb{<-} \hlkwd{new}\hlstd{(}\hlstr{"SnpMatrix"}\hlstd{, snpsnew)}
+\hlkwd{print}\hlstd{(}\hlkwd{as}\hlstd{(snpsSNPstats[}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{,}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{],} \hlstr{'character'}\hlstd{))}
+\hlkwd{save}\hlstd{(snpsSNPstats,} \hlkwc{file}\hlstd{=}\hlstr{"snpsSNPstats.RData"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 \end{frame}
 
