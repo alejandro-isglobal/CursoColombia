@@ -1,0 +1,10 @@
+\frametitle{ejercicio}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{selhw}\hlkwb{<-}\hlkwd{abs}\hlstd{(sum}\hlopt{$}\hlstd{z.HWE)} \hlopt{<} \hlnum{6}
+\hlstd{NewsnpsSNPstats}\hlkwb{<-}\hlstd{snpsSNPstats[, selhw} \hlopt{&} \hlstd{selectMAF} \hlopt{&} \hlstd{selectCallRate]}
+\hlkwd{save}\hlstd{(NewsnpsSNPstats,} \hlkwc{file}\hlstd{=}\hlstr{"NewsnpsSNPstats.RData"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}

@@ -32,13 +32,13 @@ En illumina los datos crudos son las intensidades de cada alelo
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[height=3cm,with=3cm]{clustermicro.jpg}
+\includegraphics[width=.5\linewidth]{clustermicro.jpg}
 \end{center}
 \end{figure}
 
 entre menos varianza en angulo entre los grupos mejor es la genotipacion del SNP
 
-\begin{itemize}[fragile]
+\begin{itemize}
 \item B-allelefreq: la intensidad relativa del allelo B respecto al A (angulo)
 \item log2ratio: la intensidad de la observacion respecto al grupo (magnitud)
 \end{itemize}
@@ -53,12 +53,12 @@ entre menos varianza en angulo entre los grupos mejor es la genotipacion del SNP
 Es el software de Illumina para hacer el genotipado de los SNPs (clustering)
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[height=3cm,with=3cm]{genomestudio.jpg}
+\includegraphics[width=.6\linewidth]{genomestudio.jpg}
 \end{center}
 \end{figure}
 
 \begin{itemize}
-\item el control de calidad en el genotiupado est\'a dado por el clustering
+\item el control de calidad en el genotipado est\'a dado por el clustering
 \item reporta un calldate y un valor del numero de sujetos con genotipado aceptable por SNP 
 \item genera los genotipos en formato PLINK 
 \end{itemize}
@@ -67,10 +67,10 @@ Es el software de Illumina para hacer el genotipado de los SNPs (clustering)
 
 
 \begin{frame}[fragile]
-\frametitle{Control de Sujetos}
+\frametitle{Control de Calidad por Sujetos}
 
 \begin{itemize}
-\item que el sexo es el reportado o detecc\ion de aneploidías como XXY, XYY, etc 
+\item que el sexo es el reportado o detecci\'on de aneploidías como XXY, XYY, etc 
 \item cosanginidad mas alta de la esperado en el diseño del estudio 
 \end{itemize}
 
@@ -78,7 +78,7 @@ Es el software de Illumina para hacer el genotipado de los SNPs (clustering)
 
 
 \begin{frame}[fragile]
-\frametitle{Identidad por desCendencia}
+\frametitle{Identidad por descendencia}
 
 La consanginidad (identity by descent) se puede calcular en PLINK por medio de la opci\'on --genome
 
@@ -89,16 +89,6 @@ acaceres@IMW00680:~$ plink --bfile [filename prefix] --genome
 y produce un reporte en el fichero {\tt plink.genome}
 \end{frame}
 
-
-\begin{frame}[fragile]
-\frametitle{Control de Sujetos}
-
-\begin{itemize}
-\item que el sexo es el reportado o detecc\ion de aneploidías como XXY, XYY, etc 
-\item cosanginidad mas alta de la esperado en el diseño del estudio 
-\end{itemize}
-
-\end{frame}
 
 
 \begin{frame}[fragile]
@@ -169,9 +159,9 @@ desviaciones en estas reglas son herrores de trasmisi\'on mendelianos e indican 
 \end{itemize}
 
 En R cargemos la librer\'ia y los datos
-<<eval>>=
+<<>>=
 library("snpStats")
-load("snpsSNPstats.RData")
+load("datos/snpsSNPstats.RData")
 snpsSNPstats
 @
 \end{frame}
@@ -208,6 +198,8 @@ selectMAF <- MAF > 0.01
 length(selectMAF)
 head(selectMAF)
 @
+\end{frame}
+
 
 \begin{frame}[fragile]
 \frametitle{SNPStats}
@@ -226,6 +218,7 @@ selsnpnames <- snpnames[selectMAFCAllrete]
 length(selsnpnames)
 head(selsnpnames)
 @
+\end{frame}
 
 
 \begin{frame}[fragile]
@@ -235,8 +228,6 @@ teniendo los SNPs se puede seleccionar una submatriz de los genotipos con s\'olo
 NewsnpsSNPstats<-snpsSNPstats[,selsnpnames]
 NewsnpsSNPstats
 @
-
-
 \end{frame}
 
 
@@ -249,7 +240,6 @@ NewsnpsSNPstats
 \end{itemize}
 
 desviaciones en estas reglas son herrores de trasmisi\'on mendelianos e indican error en genotipaci\'on
-
 \end{frame}
 
 \begin{frame}[fragile]
@@ -259,8 +249,6 @@ selhw<-abs(sum$z.HWE) < 6
 NewsnpsSNPstats<-snpsSNPstats[, selhw & selectMAF & selectCallRate]
 save(NewsnpsSNPstats, file="NewsnpsSNPstats.RData")
 @
-
-
 \end{frame}
 
 
