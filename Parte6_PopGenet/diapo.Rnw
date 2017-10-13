@@ -6,33 +6,286 @@
 # smaller font size for chunks
 opts_chunk$set(size = 'footnotesize')
 @
-\title{A Minimal Demo of knitr}
-\author{Paul Hiemstra \and Yihui Xie}
+\title{Introducci\'on a la Gen\'omica \\ UNAL nov 2017}
+\author{Alejandro C\'aceres \\ ISGlobal, Barcelona}
+
 
 \maketitle
-
 % very important to use option [fragile] for frames containing code output!
 
-\begin{frame}[fragile]
-You can test if \textbf{knitr} works with this minimal demo. OK, let's
-get started with some boring random numbers:
 
-<<boring-random>>=
-set.seed(1121)
-(x=rnorm(20))
-mean(x);var(x)
+\begin{frame}[fragile]
+\frametitle{Gen\'etica de poblaciones}
+
+Los datos gen\'omicos de SNPs nos sirven para ver la variabilidad gen\'etica entre poblacines
+\begin{itemize}
+\item Estructura de LD en cada poblaci\'on
+\item Heterocigosidad por poblaci\'on
+\item \'Indice de fijaci\'on
+\item Patrones de recombinaci\'on
+\item Indicadores de selecci\'on
+\item Filogenia
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Estructura de LD entre poblaciones}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=.5\linewidth]{mozscreenshot141.pdf}
+\end{center}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{C\'omo podemos extraer esa estructura}
+\begin{table}[]
+\centering
+\begin{tabular}{c|cc|c}
+  & A & T &  Total \\ \hline
+C &  $x_{CA}$  &  $x_{CT}$  &  $q_C$ \\
+A &  $x_{AA}$  &  $x_{AT}$  &  $q_A$  \\ \hline
+Total & $p_A$  &  $p_T$  &   1 \\
+\end{tabular}
+\end{table}
+el LD esta dado por $D=p_A*q_C - x_{CA}$
+
+Recordemos que la fase se pierde por lo que el LD tiene que ser esimado modelando la probabilidad de una fase particular.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{LD}
+Con snpStats se puede calcular el LD entre dos SNPs
+
+<<message=FALSE>>=
+library(snpStats)
+@
+
+<<>>=
+load("datos/NewsnpsSNPstats.RData")
+ls()
+@
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{LD}
+Con snpStats se puede calcular el LD entre dos SNPs
+<<>>=
+snps <- NewsnpsSNPstats[,c(90,91)]
+ld(snps, stats=c("D.prime", "R.squared"),depth=1)
 @
 \end{frame}
 
 \begin{frame}[fragile]
-The first element of \texttt{x} is \Sexpr{x[1]}. Boring boxplots
-and histograms recorded by the PDF device:
-
-<<boring-plots, fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
-## two plots side by side (option fig.show='hold')
-boxplot(x)
-hist(x,main='')
+\frametitle{LD}
+Podemos tambi\'en calcular el LD entre todos los SNPs
+<<plotLD, fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
+LD <- ld(NewsnpsSNPstats, stats=c("D.prime", "R.squared"),depth=379)
+image(LD$R.squared, lwd=0)
 @
 \end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{LD}
+LD para una poblaci\'on
+
+Seleccionemos los individuos de la poblaci\'on GBR
+
+<<>>=
+ids <- read.table("datos/20130606_g1k.ped", sep="\t", header=TRUE)
+
+rownames(ids) <- ids$Individual.ID
+pops <- ids[rownames(NewsnpsSNPstats),]$Population
+head(pops)
+GBR <- pops=="GBR"
+head(GBR)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{LD}
+LD para GRB
+
+<<plotLDGRB, fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
+
+snpsGBR <- NewsnpsSNPstats[GBR,]
+LDGBR <- ld(snpsGBR, stats=c("D.prime", "R.squared"),depth=379)
+image(LDGBR$R.squared, lwd=0)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{LD}
+Ejercicio LD para una poblaci\'on YRI
+
+<<plotLDYRI, fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold', echo=FALSE>>=
+
+YRI <- pops=="YRI"
+snpsYRI <- NewsnpsSNPstats[YRI,]
+LDYRI <- ld(snpsYRI, stats=c("D.prime", "R.squared"),depth=379)
+image(LDGBR$R.squared, lwd=0)
+image(LDYRI$R.squared, lwd=0)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{LD}
+Ejercicio LD para una poblaci\'on YRI
+
+<<eval=FALSE>>=
+YRI <- pops=="YRI"
+snpsYRI <- NewsnpsSNPstats[YRI,]
+LDYRI <- ld(snpsYRI, stats=c("D.prime", "R.squared"),depth=379)
+image(LDYRI$R.squared, lwd=0)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Heterecigosidad}
+\begin{itemize}
+\item La heterocigosidad es la proporci\'on de heterocigotos que hay en una poblaci\'on.
+\item Mayor taza de heterocigosidad mayor es la variabilidad gen\'etica
+\end{itemize}
+se calcula como 
+\begin{eqnarray}
+2pq=1-p^2-q^2
+\end{eqnarray}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Heterecigosidad}
+
+<<>>=
+sumSnps <- col.summary(NewsnpsSNPstats)
+head(sumSnps)
+@
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Heterecigosidad}
+
+<<fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
+p<-sumSnps$MAF
+hist(1-p^2-(1-p)^2)
+@
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Heterecigosidad}
+Heterocigosidad por poblaciones
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{LD}
+Ejercicio LD para una poblaci\'on YRI
+
+<<eval=FALSE>>=
+YRI <- pops=="YRI"
+snpsYRI <- NewsnpsSNPstats[YRI,]
+LDYRI <- ld(snpsYRI, stats=c("D.prime", "R.squared"),depth=379)
+image(LDYRI$R.squared, lwd=0)
+@
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{\'Indice de fijaci\'on}
+
+El Fst (fixation index) que mide la proporcion de variabilidad genetica debida a diferencias entre poblaciones 
+\begin{eqnarray}
+F_{ST}=\frac{\sigma^2_S}{\sigma^2_T}
+\end{eqnarray}
+
+$\sigma^2_S$ es la varianza entre poblaciones y $\sigma^2_T$ es la varianza total
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\'Indice de fijaci\'on}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=.5\linewidth]{twogroup.pdf}
+\end{center}
+\end{figure}
+
+\begin{eqnarray}
+F=\frac{\sigma^2_{caso-control}}{\sigma^2_{todos}}
+\end{eqnarray}
+Qu\'e tan differenciables son los groupos?
+
+\end{frame}
+
+\begin{frame}[fragile]
+Distribuci\'on de Fst en la regi\'on de \emph{MAPT} para los 1000 genomas 
+\frametitle{Fst}
+<<plotfst, fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
+FST <- Fst(NewsnpsSNPstats,pops)
+hist(FST$Fst)
+@
+\end{frame}
+
+
+\begin{frame}[fragile]
+Fst promedio estimado para las poblaciones del HapMap 
+
+\begin{table}[]
+\frametitle{Fst}
+\centering
+\begin{tabular}{c|ccc}
+ 	&CEU&	YRI &	JPT \\ \hline
+YRI &	0.153 \\ 		
+JPT&	0.111 &	0.190 \\	
+CHB &	0.110 &	0.192 &	0.007 \\
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fst}
+
+Ejercicio: calcular Fst entre YRI y CEU en la region de \emph{MAPT}
+
+<<echo=FALSE,fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
+CEUandYRI <- pops%in%c("CEU","YRI")
+snpsCEUandYRI<-NewsnpsSNPstats[CEUandYRI,]
+popsCEUandYRI <- pops[CEUandYRI]
+FST <- Fst(snpsCEUandYRI,popsCEUandYRI)
+hist(FST$Fst)
+mean(FST$Fst, na.rm=TRUE)
+@
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Fst}
+
+Ejercicio: calcular Fst entre YRI y CEU en la region de \emph{MAPT}
+
+<<eval=FALSE>>=
+CEUandYRI <- pops%in%c("CEU","YRI")
+snpsCEUandYRI<-NewsnpsSNPstats[CEUandYRI,]
+popsCEUandYRI <- pops[CEUandYRI]
+FST <- Fst(snpsCEUandYRI,popsCEUandYRI)
+hist(FST$Fst)
+mean(FST$Fst, na.rm=TRUE)
+@
+\end{frame}
+
+
 
 \end{document}

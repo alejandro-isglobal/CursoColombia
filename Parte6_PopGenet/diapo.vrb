@@ -1,0 +1,16 @@
+\frametitle{Fst}
+
+Ejercicio: calcular Fst entre YRI y CEU en la region de \emph{MAPT}
+
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{CEUandYRI} \hlkwb{<-} \hlstd{pops}\hlopt{%in%}\hlkwd{c}\hlstd{(}\hlstr{"CEU"}\hlstd{,}\hlstr{"YRI"}\hlstd{)}
+\hlstd{snpsCEUandYRI}\hlkwb{<-}\hlstd{NewsnpsSNPstats[CEUandYRI,]}
+\hlstd{popsCEUandYRI} \hlkwb{<-} \hlstd{pops[CEUandYRI]}
+\hlstd{FST} \hlkwb{<-} \hlkwd{Fst}\hlstd{(snpsCEUandYRI,popsCEUandYRI)}
+\hlkwd{hist}\hlstd{(FST}\hlopt{$}\hlstd{Fst)}
+\hlkwd{mean}\hlstd{(FST}\hlopt{$}\hlstd{Fst,} \hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
