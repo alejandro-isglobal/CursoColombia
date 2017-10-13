@@ -28,7 +28,7 @@ los que mas destacan son el an\'alis de compontentes principales (PCA) y el esca
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[height=6.5cm,with=6.5cm]{pca1000g.jpg}
+\includegraphics[width=.5\linewidth]{pca1000g.jpg}
 \end{center}
 \end{figure}
 \end{frame}
@@ -40,7 +40,7 @@ los que mas destacan son el an\'alis de compontentes principales (PCA) y el esca
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[height=6.5cm,with=6.5cm]{eurpca.jpeg}
+\includegraphics[width=.5\linewidth]{eurpca.jpeg}
 \end{center}
 \end{figure}
 \end{frame}
@@ -62,10 +62,11 @@ El n\'umero de variables que se calculan detende de que tanto queramos explicar 
 \begin{frame}[fragile]
 \frametitle{snpStats}
 Veamos como se calcula PCA en SNPstats
-
-<<plot1,fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
+<<message=FALSE>>=
 library(snpStats)
-load("NewsnpsSNPstats.RData")
+@
+<<plot1,fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
+load("datos/NewsnpsSNPstats.RData")
 xxmat <- xxt(NewsnpsSNPstats)
 evv <- eigen(xxmat)
 pcs <- evv$vectors[,1:2]
@@ -79,7 +80,7 @@ el c\'alculo de PCA tarda mucho si son datos de todo el genoma.
 \frametitle{snpStats}
 Podemos ver que para esta regi\'on el PCA discrimina poblaciones
 <<plot2, fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
-ids<-read.table("20130606_g1k.ped", sep="\t", header=TRUE)
+ids<-read.table("datos/20130606_g1k.ped", sep="\t", header=TRUE)
 
 rownames(ids)<-ids$Individual.ID
 pops<-ids[rownames(NewsnpsSNPstats),]$Population

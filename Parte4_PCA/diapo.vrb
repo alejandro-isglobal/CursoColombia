@@ -1,0 +1,13 @@
+\frametitle{PLINK}
+
+Debido a que los analisis multivariantes son constosos computacionalmente es mejor usar codigo compilado
+PLINK.
+
+\begin{verbatim}
+plink --bfile  mydata --pca --out mydata
+plink --bfile  mydata --mds-plot --out mydata --neighbour 1 15
+\end{verbatim}
+Los resultados deben ser muy similares.
+--neighbour 1 15 calcula las distancias del primer al 15 vecinos mas cercanos para determinar si un individuo es un outlier
+en terminos de ancestr\'ia
+
