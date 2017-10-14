@@ -417,100 +417,85 @@ Variant annotation
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{library}\hlstd{(VariantAnnotation)}
-\end{alltt}
-
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: BiocGenerics}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: parallel}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'BiocGenerics'}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following objects are masked from 'package:parallel':\\\#\# \\\#\#\ \ \ \  clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,\\\#\#\ \ \ \  clusterExport, clusterMap, parApply, parCapply, parLapply,\\\#\#\ \ \ \  parLapplyLB, parRapply, parSapply, parSapplyLB}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following objects are masked from 'package:Matrix':\\\#\# \\\#\#\ \ \ \  colMeans, colSums, rowMeans, rowSums, which}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following objects are masked from 'package:stats':\\\#\# \\\#\#\ \ \ \  IQR, mad, sd, var, xtabs}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following objects are masked from 'package:base':\\\#\# \\\#\#\ \ \ \  anyDuplicated, append, as.data.frame, cbind, colMeans,\\\#\#\ \ \ \  colnames, colSums, do.call, duplicated, eval, evalq, Filter,\\\#\#\ \ \ \  Find, get, grep, grepl, intersect, is.unsorted, lapply,\\\#\#\ \ \ \  lengths, Map, mapply, match, mget, order, paste, pmax,\\\#\#\ \ \ \  pmax.int, pmin, pmin.int, Position, rank, rbind, Reduce,\\\#\#\ \ \ \  rowMeans, rownames, rowSums, sapply, setdiff, sort, table,\\\#\#\ \ \ \  tapply, union, unique, unsplit, which, which.max, which.min}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: GenomeInfoDb}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: S4Vectors}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: stats4}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'S4Vectors'}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following object is masked from 'package:Matrix':\\\#\# \\\#\#\ \ \ \  expand}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following object is masked from 'package:base':\\\#\# \\\#\#\ \ \ \  expand.grid}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: IRanges}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: GenomicRanges}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: SummarizedExperiment}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: Biobase}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Welcome to Bioconductor\\\#\# \\\#\#\ \ \ \  Vignettes contain introductory material; view with\\\#\#\ \ \ \  'browseVignettes()'. To cite Bioconductor, see\\\#\#\ \ \ \  'citation("{}Biobase"{})', and for packages 'citation("{}pkgname"{})'.}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: DelayedArray}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: matrixStats}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'matrixStats'}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following objects are masked from 'package:Biobase':\\\#\# \\\#\#\ \ \ \  anyMissing, rowMedians}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'DelayedArray'}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following objects are masked from 'package:matrixStats':\\\#\# \\\#\#\ \ \ \  colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following object is masked from 'package:base':\\\#\# \\\#\#\ \ \ \  apply}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: Rsamtools}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: Biostrings}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: XVector}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'Biostrings'}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following object is masked from 'package:DelayedArray':\\\#\# \\\#\#\ \ \ \  type}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following object is masked from 'package:base':\\\#\# \\\#\#\ \ \ \  strsplit}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'VariantAnnotation'}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following object is masked from 'package:base':\\\#\# \\\#\#\ \ \ \  tabulate}}\begin{alltt}
-\hlstd{fl}\hlkwb{<-}\hlstr{"17.43921017-43972966.ALL.chr17.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf"}
+\hlstd{fl}\hlkwb{<-}\hlstr{"datos/17.43921017-43972966.ALL.chr17.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf"}
 \hlstd{vcf} \hlkwb{<-} \hlkwd{readVcf}\hlstd{(fl,} \hlstr{"hg19"}\hlstd{)}
+\hlstd{vcf}
 \end{alltt}
+\begin{verbatim}
+## class: CollapsedVCF 
+## dim: 1863 2504 
+## rowRanges(vcf):
+##   GRanges with 5 metadata columns: paramRangeID, REF, ALT, QUAL, FILTER
+## info(vcf):
+##   DataFrame with 27 columns: CIEND, CIPOS, CS, END, IMPRECISE, MC, MEIN...
+## info(header(vcf)):
+##                  Number Type    Description                               
+##    CIEND         2      Integer Confidence interval around END for impr...
+##    CIPOS         2      Integer Confidence interval around POS for impr...
+##    CS            1      String  Source call set.                          
+##    END           1      Integer End coordinate of this variant            
+##    IMPRECISE     0      Flag    Imprecise structural variation            
+##    MC            .      String  Merged calls.                             
+##    MEINFO        4      String  Mobile element info of the form NAME,ST...
+##    MEND          1      Integer Mitochondrial end coordinate of inserte...
+##    MLEN          1      Integer Estimated length of mitochondrial insert  
+##    MSTART        1      Integer Mitochondrial start coordinate of inser...
+##    SVLEN         .      Integer SV length. It is only calculated for st...
+##    SVTYPE        1      String  Type of structural variant                
+##    TSD           1      String  Precise Target Site Duplication for bas...
+##    AC            A      Integer Total number of alternate alleles in ca...
+##    AF            A      Float   Estimated allele frequency in the range...
+##    NS            1      Integer Number of samples with data               
+##    AN            1      Integer Total number of alleles in called genot...
+##    EAS_AF        A      Float   Allele frequency in the EAS populations...
+##    EUR_AF        A      Float   Allele frequency in the EUR populations...
+##    AFR_AF        A      Float   Allele frequency in the AFR populations...
+##    AMR_AF        A      Float   Allele frequency in the AMR populations...
+##    SAS_AF        A      Float   Allele frequency in the SAS populations...
+##    DP            1      Integer Total read depth; only low coverage dat...
+##    AA            1      String  Ancestral Allele. Format: AA|REF|ALT|In...
+##    VT            .      String  indicates what type of variant the line...
+##    EX_TARGET     0      Flag    indicates whether a variant is within t...
+##    MULTI_ALLELIC 0      Flag    indicates whether a site is multi-allelic 
+## geno(vcf):
+##   SimpleList of length 1: GT
+## geno(header(vcf)):
+##       Number Type   Description
+##    GT 1      String Genotype
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in .io\_check\_exists(path(con)): file(s) do not exist:\\\#\#\ \  '17.43921017-43972966.ALL.chr17.phase3\_shapeit2\_mvncall\_integrated\_v5a.20130502.genotypes.vcf'}}\begin{alltt}
+\begin{frame}[fragile]
+\frametitle{VCF in R}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
 \hlstd{genos}\hlkwb{<-}\hlkwd{geno}\hlstd{(vcf)}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in geno(vcf): object 'vcf' not found}}\begin{alltt}
 \hlkwd{names}\hlstd{(genos)}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'genos' not found}}\begin{alltt}
+\begin{verbatim}
+## [1] "GT"
+\end{verbatim}
+\begin{alltt}
 \hlkwd{dim}\hlstd{(genos}\hlopt{$}\hlstd{GT)}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'genos' not found}}\begin{alltt}
+\begin{verbatim}
+## [1] 1863 2504
+\end{verbatim}
+\begin{alltt}
 \hlstd{genos}\hlopt{$}\hlstd{GT[}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{,}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{]}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'genos' not found}}\end{kframe}
+\begin{verbatim}
+##             HG00096 HG00097 HG00099 HG00100 HG00101
+## rs555347111 "0|0"   "0|0"   "0|0"   "0|0"   "0|0"  
+## rs573543994 "0|0"   "0|0"   "0|0"   "0|0"   "0|0"  
+## rs542617372 "0|0"   "0|0"   "0|0"   "0|0"   "0|0"  
+## rs562398147 "0|0"   "0|0"   "0|0"   "0|0"   "0|0"  
+## rs576107214 "0|0"   "0|0"   "0|0"   "0|0"   "0|0"
+\end{verbatim}
+\end{kframe}
 \end{knitrout}
 
 Si el archivo es grande readVcf permite leer s\'olo regiones de interes
@@ -529,35 +514,23 @@ Si no se puede entonces se puede calcular asi
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{snps}\hlkwb{<-}\hlstd{genos}\hlopt{$}\hlstd{GT}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'genos' not found}}\begin{alltt}
 \hlstd{snps[snps}\hlopt{==}\hlstr{"0|0"}\hlstd{]}\hlkwb{<-}\hlnum{0}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in snps[snps == "{}0|0"{}] <- 0: object 'snps' not found}}\begin{alltt}
 \hlstd{snps[snps}\hlopt{==}\hlstr{"1|1"}\hlstd{]}\hlkwb{<-}\hlnum{2}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in snps[snps == "{}1|1"{}] <- 2: object 'snps' not found}}\begin{alltt}
 \hlstd{snps[snps}\hlopt{!=}\hlnum{0} \hlopt{&} \hlstd{snps} \hlopt{!=}\hlnum{2}\hlstd{]}\hlkwb{<-}\hlnum{1}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in snps[snps != 0 \& snps != 2] <- 1: object 'snps' not found}}\begin{alltt}
 \hlstd{snps[}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{,}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{]}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'snps' not found}}\begin{alltt}
+\begin{verbatim}
+##             HG00096 HG00097 HG00099 HG00100 HG00101
+## rs555347111 "0"     "0"     "0"     "0"     "0"    
+## rs573543994 "0"     "0"     "0"     "0"     "0"    
+## rs542617372 "0"     "0"     "0"     "0"     "0"    
+## rs562398147 "0"     "0"     "0"     "0"     "0"    
+## rs576107214 "0"     "0"     "0"     "0"     "0"
+\end{verbatim}
+\begin{alltt}
 \hlkwd{save}\hlstd{(snps,} \hlkwc{file}\hlstd{=}\hlstr{"snpsMAPT.RData"}\hlstd{)}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in save(snps, file = "{}snpsMAPT.RData"{}): object 'snps' not found}}\end{kframe}
+\end{kframe}
 \end{knitrout}
 
 
@@ -572,40 +545,30 @@ snpStats usa formato 1,2,3 para genotipos y el 0 para missing
 \begin{alltt}
 \hlkwd{library}\hlstd{(snpStats)}
 \hlstd{snpsnew}\hlkwb{<-}\hlkwd{t}\hlstd{(snps)}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in t(snps): object 'snps' not found}}\begin{alltt}
 \hlstd{snpsnew[snps}\hlopt{==}\hlstr{"0"}\hlstd{]} \hlkwb{<-} \hlnum{1}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in snpsnew[snps == "{}0"{}] <- 1: object 'snpsnew' not found}}\begin{alltt}
 \hlstd{snpsnew[snps}\hlopt{==}\hlstr{"1"}\hlstd{]} \hlkwb{<-} \hlnum{2}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in snpsnew[snps == "{}1"{}] <- 2: object 'snpsnew' not found}}\begin{alltt}
 \hlstd{snpsnew[snps}\hlopt{==}\hlstr{"2"}\hlstd{]} \hlkwb{<-} \hlnum{3}
-\end{alltt}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in snpsnew[snps == "{}2"{}] <- 3: object 'snpsnew' not found}}\begin{alltt}
 \hlstd{snpsSNPstats} \hlkwb{<-} \hlkwd{new}\hlstd{(}\hlstr{"SnpMatrix"}\hlstd{, snpsnew)}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in initMatrix(.Object, ...): object 'snpsnew' not found}}\begin{alltt}
+\begin{verbatim}
+## coercing object of mode  character  to SnpMatrix
+\end{verbatim}
+\begin{alltt}
 \hlkwd{print}\hlstd{(}\hlkwd{as}\hlstd{(snpsSNPstats[}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{,}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{],} \hlstr{'character'}\hlstd{))}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in .class1(object): object 'snpsSNPstats' not found}}\begin{alltt}
+\begin{verbatim}
+##         rs555347111 rs573543994 rs542617372 rs562398147 rs576107214
+## HG00096 "A/A"       "A/A"       "A/A"       "A/A"       "A/A"      
+## HG00097 "A/A"       "A/A"       "A/A"       "A/A"       "A/A"      
+## HG00099 "A/A"       "A/A"       "A/A"       "A/A"       "A/A"      
+## HG00100 "A/A"       "A/A"       "A/A"       "A/A"       "A/A"      
+## HG00101 "A/A"       "A/A"       "A/A"       "A/A"       "A/A"
+\end{verbatim}
+\begin{alltt}
 \hlkwd{save}\hlstd{(snpsSNPstats,} \hlkwc{file}\hlstd{=}\hlstr{"snpsSNPstats.RData"}\hlstd{)}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in save(snpsSNPstats, file = "{}snpsSNPstats.RData"{}): object 'snpsSNPstats' not found}}\end{kframe}
+\end{kframe}
 \end{knitrout}
 
 \end{frame}

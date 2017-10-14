@@ -332,6 +332,13 @@ Variant annotation
 library(VariantAnnotation)
 fl<-"datos/17.43921017-43972966.ALL.chr17.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf"
 vcf <- readVcf(fl, "hg19")
+vcf
+@
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{VCF in R}
+<<>>=
 genos<-geno(vcf)
 names(genos)
 dim(genos$GT)
