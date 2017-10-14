@@ -328,9 +328,9 @@ Variant annotation
 \begin{frame}[fragile]
 \frametitle{VCF in R}
 
-<<eval=FALSE>>=
+<<message=FALSE>>=
 library(VariantAnnotation)
-fl<-"17.43921017-43972966.ALL.chr17.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf"
+fl<-"datos/17.43921017-43972966.ALL.chr17.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf"
 vcf <- readVcf(fl, "hg19")
 genos<-geno(vcf)
 names(genos)
@@ -350,7 +350,7 @@ Los genotipos en formato 0,1,2 pueden ser encontrados en $genos\$DS$.
 
 Si no se puede entonces se puede calcular asi
 
-<<eval=FALSE>>=
+<<>>=
 snps<-genos$GT
 snps[snps=="0|0"]<-0
 snps[snps=="1|1"]<-2
@@ -366,7 +366,7 @@ save(snps, file="snpsMAPT.RData")
 \begin{frame}[fragile]
 \frametitle{VCF in snpStats}
 snpStats usa formato 1,2,3 para genotipos y el 0 para missing
-<<eval=FALSE>>=
+<<>>=
 library(snpStats)
 snpsnew<-t(snps)
 snpsnew[snps=="0"] <- 1
