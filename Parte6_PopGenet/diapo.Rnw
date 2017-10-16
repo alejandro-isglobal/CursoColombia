@@ -148,6 +148,9 @@ image(LDYRI$R.squared, lwd=0)
 @
 \end{frame}
 
+
+
+
 \begin{frame}[fragile]
 \frametitle{Heterecigosidad}
 \begin{itemize}
@@ -184,20 +187,89 @@ hist(1-p^2-(1-p)^2)
 
 \begin{frame}[fragile]
 \frametitle{Heterecigosidad}
-Heterocigosidad por poblaciones
+Heterocigosidad en una poblaci\'on
+
+<<>>=
+lv <- levels(pops)
+x <- lv[1]
+x
+whichpop <- pops==x
+POPsnps <- NewsnpsSNPstats[whichpop,]
+sumSnps <- col.summary(POPsnps)
+p <- sumSnps$MAF
+@
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Heterecigosidad}
+Heterocigosidad en una poblaci\'on
+
+<<fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
+hist(1-p^2-(1-p)^2)
+@
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{LD}
+Histograma de heterocigosidad para YRI
+<<echo=FALSE, fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
+lv <- levels(pops)
+x <- lv[26]
+x
+whichpop <- pops==x
+POPsnps <- NewsnpsSNPstats[whichpop,]
+sumSnps <- col.summary(POPsnps)
+p <- sumSnps$MAF
+hist(1-p^2-(1-p)^2)
+@
+\end{frame}
 
 
 \begin{frame}[fragile]
 \frametitle{LD}
-Ejercicio LD para una poblaci\'on YRI
+Histograma de heterocigosidad para YRI
+<<eval=FALSE, fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
+lv <- levels(pops)
+x <- lv[26]
+x
+whichpop <- pops==x
+POPsnps <- NewsnpsSNPstats[whichpop,]
+sumSnps <- col.summary(POPsnps)
+p <- sumSnps$MAF
+hist(1-p^2-(1-p)^2)
+@
 
-<<eval=FALSE>>=
-YRI <- pops=="YRI"
-snpsYRI <- NewsnpsSNPstats[YRI,]
-LDYRI <- ld(snpsYRI, stats=c("D.prime", "R.squared"),depth=379)
-image(LDYRI$R.squared, lwd=0)
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+\frametitle{Heterecigosidad}
+Heterocigosidad por poblaciones
+
+<<>>=
+hetpop<-sapply(levels(pops), function(x)
+ {
+    whichpop <- pops==x
+    POPsnps <- NewsnpsSNPstats[whichpop,]
+    sumSnps <- col.summary(POPsnps)
+    p <- sumSnps$MAF
+    1-p^2-(1-p)^2
+  })
+hetpop[1:5,1:5]
+
+@
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Heterecigosidad}
+Heterocigosidad por poblaciones
+
+<<fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
+boxplot(hetpop)
 @
 \end{frame}
 
@@ -286,6 +358,17 @@ mean(FST$Fst, na.rm=TRUE)
 @
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Fst y heterocigosidad en 1000 Genomas}
+
+Livio Casarini  et al. Clin Endocrinol Metab, 2014, 99(11):E2412
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=1\linewidth]{1000gFst.png}
+\end{center}
+\end{figure}
+\end{frame}
 
 
 \end{document}

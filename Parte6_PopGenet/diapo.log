@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.10.5)  13 OCT 2017 16:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.10.5)  16 OCT 2017 11:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1108,59 +1108,113 @@ Package pdftex.def Info: figure/unnamed-chunk-7-1.pdf used on input line 10.
 ]
 \openout4 = `diapo.vrb'.
 
- (./diapo.vrb) [16
-
-]
-\openout4 = `diapo.vrb'.
-
- (./diapo.vrb) [17
-
-]
-\openout4 = `diapo.vrb'.
-
  (./diapo.vrb
-<twogroup.pdf, id=499, 505.89pt x 505.89pt>
-File: twogroup.pdf Graphic file (type pdf)
- <use twogroup.pdf>
-Package pdftex.def Info: twogroup.pdf used on input line 5.
-(pdftex.def)             Requested size: 153.64493pt x 153.64394pt.
-) [18
-
- <./twogroup.pdf>]
-\openout4 = `diapo.vrb'.
-
- (./diapo.vrb <figure/plotfst-1.pdf, id=530, 361.35pt x 361.35pt>
-File: figure/plotfst-1.pdf Graphic file (type pdf)
-
-<use figure/plotfst-1.pdf>
-Package pdftex.def Info: figure/plotfst-1.pdf used on input line 10.
-(pdftex.def)             Requested size: 138.2795pt x 138.27933pt.
-) [19
-
- <./figure/plotfst-1.pdf>]
-\openout4 = `diapo.vrb'.
-
- (./diapo.vrb)
-[20
-
-]
-\openout4 = `diapo.vrb'.
-
- (./diapo.vrb <figure/unnamed-chunk-9-1.pdf, id=590, 361.35pt x 361.35pt>
+<figure/unnamed-chunk-9-1.pdf, id=447, 361.35pt x 361.35pt>
 File: figure/unnamed-chunk-9-1.pdf Graphic file (type pdf)
 
 <use figure/unnamed-chunk-9-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-9-1.pdf used on input line 11.
+Package pdftex.def Info: figure/unnamed-chunk-9-1.pdf used on input line 10.
 (pdftex.def)             Requested size: 138.2795pt x 138.27933pt.
-) [21
+) [16
 
  <./figure/unnamed-chunk-9-1.pdf>]
 \openout4 = `diapo.vrb'.
 
 
-(./diapo.vrb) [22
+(./diapo.vrb <figure/unnamed-chunk-10-1.pdf, id=480, 361.35pt x 361.35pt>
+File: figure/unnamed-chunk-10-1.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-10-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-10-1.pdf used on input line 9.
+(pdftex.def)             Requested size: 138.2795pt x 138.27933pt.
+) [17
+
+ <./figure/unnamed-chunk-10-1.pdf>]
+\openout4 = `diapo.vrb'.
+
+
+(./diapo.vrb) [18
 
 ]
+\openout4 = `diapo.vrb'.
+
+ (./diapo.vrb) [19
+
+]
+\openout4 = `diapo.vrb'.
+
+ (./diapo.vrb
+<figure/unnamed-chunk-13-1.pdf, id=563, 361.35pt x 361.35pt>
+File: figure/unnamed-chunk-13-1.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-13-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-13-1.pdf used on input line 10.
+(pdftex.def)             Requested size: 138.2795pt x 138.27933pt.
+) [20
+
+ <./figure/unnamed-chunk-13-1.pdf>]
+\openout4 = `diapo.vrb'.
+
+
+(./diapo.vrb) [21
+
+]
+\openout4 = `diapo.vrb'.
+
+ (./diapo.vrb <twogroup.pdf, id=621, 505.89pt x 505.89pt>
+File: twogroup.pdf Graphic file (type pdf)
+
+<use twogroup.pdf>
+Package pdftex.def Info: twogroup.pdf used on input line 5.
+(pdftex.def)             Requested size: 153.64493pt x 153.64394pt.
+) [22
+
+ <./twogroup.pdf>]
+\openout4 = `diapo.vrb'.
+
+ (./diapo.vrb
+<figure/plotfst-1.pdf, id=652, 361.35pt x 361.35pt>
+File: figure/plotfst-1.pdf Graphic file (type pdf)
+ <use figure/plotfst-1.pdf>
+Package pdftex.def Info: figure/plotfst-1.pdf used on input line 10.
+(pdftex.def)             Requested size: 138.2795pt x 138.27933pt.
+) [23
+
+ <./figure/plotfst-1.pdf>]
+\openout4 = `diapo.vrb'.
+
+ (./diapo.vrb) [24
+
+]
+\openout4 = `diapo.vrb'.
+
+ (./diapo.vrb
+<figure/unnamed-chunk-14-1.pdf, id=711, 361.35pt x 361.35pt>
+File: figure/unnamed-chunk-14-1.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-14-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-14-1.pdf used on input line 11.
+(pdftex.def)             Requested size: 138.2795pt x 138.27933pt.
+) [25
+
+ <./figure/unnamed-chunk-14-1.pdf>]
+\openout4 = `diapo.vrb'.
+
+
+(./diapo.vrb) [26
+
+]
+\openout4 = `diapo.vrb'.
+
+ (./diapo.vrb <1000gFst.png, id=768, 843.15pt x 496.85625pt>
+File: 1000gFst.png Graphic file (type png)
+
+<use 1000gFst.png>
+Package pdftex.def Info: 1000gFst.png used on input line 7.
+(pdftex.def)             Requested size: 307.28987pt x 181.08188pt.
+) [27
+
+ <./1000gFst.png (PNG copy)>]
 \tf@nav=\write6
 \openout6 = `diapo.nav'.
 
@@ -1170,11 +1224,11 @@ Package pdftex.def Info: figure/unnamed-chunk-9-1.pdf used on input line 11.
 \tf@snm=\write8
 \openout8 = `diapo.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 434.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 434.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 548.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 548.
  (./diapo.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 434.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 434.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 548.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 548.
 Package rerunfilecheck Info: File `diapo.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
@@ -1182,13 +1236,13 @@ Package rerunfilecheck Info: File `diapo.out' has not changed.
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 434.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 548.
  ) 
 Here is how much of TeX's memory you used:
- 16844 strings out of 493029
- 320739 string characters out of 6136234
+ 16896 strings out of 493029
+ 321599 string characters out of 6136234
  393391 words of memory out of 5000000
- 19880 multiletter control sequences out of 15000+600000
+ 19908 multiletter control sequences out of 15000+600000
  12514 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,14n,55p,450b,551s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1203,10 +1257,10 @@ e1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmtt9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/sy
 mbols/msam10.pfb>
-Output written on diapo.pdf (22 pages, 1248985 bytes).
+Output written on diapo.pdf (27 pages, 1486023 bytes).
 PDF statistics:
- 695 PDF objects out of 1000 (max. 8388607)
- 629 compressed objects within 7 object streams
- 45 named destinations out of 1000 (max. 500000)
- 88 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 845 PDF objects out of 1000 (max. 8388607)
+ 766 compressed objects within 8 object streams
+ 55 named destinations out of 1000 (max. 500000)
+ 108 words of extra memory for PDF output out of 10000 (max. 10000000)
 

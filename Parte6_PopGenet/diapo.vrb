@@ -1,16 +1,9 @@
-\frametitle{Fst}
+\frametitle{Fst y heterocigosidad en 1000 Genomas}
 
-Ejercicio: calcular Fst entre YRI y CEU en la region de \emph{MAPT}
+Livio Casarini  et al. Clin Endocrinol Metab, 2014, 99(11):E2412
 
-\begin{knitrout}\footnotesize
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{CEUandYRI} \hlkwb{<-} \hlstd{pops}\hlopt{%in%}\hlkwd{c}\hlstd{(}\hlstr{"CEU"}\hlstd{,}\hlstr{"YRI"}\hlstd{)}
-\hlstd{snpsCEUandYRI}\hlkwb{<-}\hlstd{NewsnpsSNPstats[CEUandYRI,]}
-\hlstd{popsCEUandYRI} \hlkwb{<-} \hlstd{pops[CEUandYRI]}
-\hlstd{FST} \hlkwb{<-} \hlkwd{Fst}\hlstd{(snpsCEUandYRI,popsCEUandYRI)}
-\hlkwd{hist}\hlstd{(FST}\hlopt{$}\hlstd{Fst)}
-\hlkwd{mean}\hlstd{(FST}\hlopt{$}\hlstd{Fst,} \hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{)}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=1\linewidth]{1000gFst.png}
+\end{center}
+\end{figure}

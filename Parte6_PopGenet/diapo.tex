@@ -250,6 +250,9 @@ Ejercicio LD para una poblaci\'on YRI
 \end{knitrout}
 \end{frame}
 
+
+
+
 \begin{frame}[fragile]
 \frametitle{Heterecigosidad}
 \begin{itemize}
@@ -312,24 +315,124 @@ se calcula como
 
 \begin{frame}[fragile]
 \frametitle{Heterecigosidad}
-Heterocigosidad por poblaciones
-\end{frame}
-
-
-
-\begin{frame}[fragile]
-\frametitle{LD}
-Ejercicio LD para una poblaci\'on YRI
+Heterocigosidad en una poblaci\'on
 
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{YRI} \hlkwb{<-} \hlstd{pops}\hlopt{==}\hlstr{"YRI"}
-\hlstd{snpsYRI} \hlkwb{<-} \hlstd{NewsnpsSNPstats[YRI,]}
-\hlstd{LDYRI} \hlkwb{<-} \hlkwd{ld}\hlstd{(snpsYRI,} \hlkwc{stats}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"D.prime"}\hlstd{,} \hlstr{"R.squared"}\hlstd{),}\hlkwc{depth}\hlstd{=}\hlnum{379}\hlstd{)}
-\hlkwd{image}\hlstd{(LDYRI}\hlopt{$}\hlstd{R.squared,} \hlkwc{lwd}\hlstd{=}\hlnum{0}\hlstd{)}
+\hlstd{lv} \hlkwb{<-} \hlkwd{levels}\hlstd{(pops)}
+\hlstd{x} \hlkwb{<-} \hlstd{lv[}\hlnum{1}\hlstd{]}
+\hlstd{x}
+\end{alltt}
+\begin{verbatim}
+## [1] "ACB"
+\end{verbatim}
+\begin{alltt}
+\hlstd{whichpop} \hlkwb{<-} \hlstd{pops}\hlopt{==}\hlstd{x}
+\hlstd{POPsnps} \hlkwb{<-} \hlstd{NewsnpsSNPstats[whichpop,]}
+\hlstd{sumSnps} \hlkwb{<-} \hlkwd{col.summary}\hlstd{(POPsnps)}
+\hlstd{p} \hlkwb{<-} \hlstd{sumSnps}\hlopt{$}\hlstd{MAF}
 \end{alltt}
 \end{kframe}
+\end{knitrout}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Heterecigosidad}
+Heterocigosidad en una poblaci\'on
+
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{hist}\hlstd{(}\hlnum{1}\hlopt{-}\hlstd{p}\hlopt{^}\hlnum{2}\hlopt{-}\hlstd{(}\hlnum{1}\hlopt{-}\hlstd{p)}\hlopt{^}\hlnum{2}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.45\linewidth]{figure/unnamed-chunk-9-1} 
+
+\end{knitrout}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{LD}
+Histograma de heterocigosidad para YRI
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+## [1] "YRI"
+\end{verbatim}
+\end{kframe}
+\includegraphics[width=.45\linewidth]{figure/unnamed-chunk-10-1} 
+
+\end{knitrout}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{LD}
+Histograma de heterocigosidad para YRI
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{lv} \hlkwb{<-} \hlkwd{levels}\hlstd{(pops)}
+\hlstd{x} \hlkwb{<-} \hlstd{lv[}\hlnum{26}\hlstd{]}
+\hlstd{x}
+\hlstd{whichpop} \hlkwb{<-} \hlstd{pops}\hlopt{==}\hlstd{x}
+\hlstd{POPsnps} \hlkwb{<-} \hlstd{NewsnpsSNPstats[whichpop,]}
+\hlstd{sumSnps} \hlkwb{<-} \hlkwd{col.summary}\hlstd{(POPsnps)}
+\hlstd{p} \hlkwb{<-} \hlstd{sumSnps}\hlopt{$}\hlstd{MAF}
+\hlkwd{hist}\hlstd{(}\hlnum{1}\hlopt{-}\hlstd{p}\hlopt{^}\hlnum{2}\hlopt{-}\hlstd{(}\hlnum{1}\hlopt{-}\hlstd{p)}\hlopt{^}\hlnum{2}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+\frametitle{Heterecigosidad}
+Heterocigosidad por poblaciones
+
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{hetpop}\hlkwb{<-}\hlkwd{sapply}\hlstd{(}\hlkwd{levels}\hlstd{(pops),} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{)}
+ \hlstd{\{}
+    \hlstd{whichpop} \hlkwb{<-} \hlstd{pops}\hlopt{==}\hlstd{x}
+    \hlstd{POPsnps} \hlkwb{<-} \hlstd{NewsnpsSNPstats[whichpop,]}
+    \hlstd{sumSnps} \hlkwb{<-} \hlkwd{col.summary}\hlstd{(POPsnps)}
+    \hlstd{p} \hlkwb{<-} \hlstd{sumSnps}\hlopt{$}\hlstd{MAF}
+    \hlnum{1}\hlopt{-}\hlstd{p}\hlopt{^}\hlnum{2}\hlopt{-}\hlstd{(}\hlnum{1}\hlopt{-}\hlstd{p)}\hlopt{^}\hlnum{2}
+  \hlstd{\})}
+\hlstd{hetpop[}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{,}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{]}
+\end{alltt}
+\begin{verbatim}
+##            ACB        ASW       BEB        CDX       CEU
+## [1,] 0.1948242 0.01625907 0.1965251 0.16608857 0.1569738
+## [2,] 0.1440430 0.12254770 0.2401298 0.07243612 0.1735027
+## [3,] 0.2341580 0.07860790 0.2230936 0.20857903 0.1226916
+## [4,] 0.1614041 0.15049718 0.1592077 0.16608857 0.2130395
+## [5,] 0.1614041 0.10816985 0.2230936 0.13920684 0.1816141
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Heterecigosidad}
+Heterocigosidad por poblaciones
+
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{boxplot}\hlstd{(hetpop)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.45\linewidth]{figure/unnamed-chunk-13-1} 
+
 \end{knitrout}
 \end{frame}
 
@@ -404,7 +507,7 @@ Ejercicio: calcular Fst entre YRI y CEU en la region de \emph{MAPT}
 ## [1] 0.003333865
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=.45\linewidth]{figure/unnamed-chunk-9-1} 
+\includegraphics[width=.45\linewidth]{figure/unnamed-chunk-14-1} 
 
 \end{knitrout}
 \end{frame}
@@ -429,6 +532,17 @@ Ejercicio: calcular Fst entre YRI y CEU en la region de \emph{MAPT}
 \end{knitrout}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Fst y heterocigosidad en 1000 Genomas}
+
+Livio Casarini  et al. Clin Endocrinol Metab, 2014, 99(11):E2412
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=1\linewidth]{1000gFst.png}
+\end{center}
+\end{figure}
+\end{frame}
 
 
 \end{document}
