@@ -251,6 +251,42 @@ Ejercicio LD para una poblaci\'on YRI
 \end{frame}
 
 
+\begin{frame}[fragile]
+\frametitle{An\'alisis de mixtura de haplotipos}
+En un poblaci\'on mestiza los bloques de LD se mezcaln de acuerdo con la recombinacion de los individuos. Para analizar estas poblaciones hace falta de m\'etodos que ayuden ver los patrones de mixtura.
+
+Structure of haplotypes and local ancestry (Yongtau Guan) Genetics. 2014, 196(3): 625–642. 
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{ELAI}
+
+Software para hacer los an\'alisis 
+
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=.7\linewidth]{ELAI.png}
+\end{center}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{ELAI}
+
+Mapa cromos\'omico para identificar la dosis de ancestr\'ia en al poblaci\'on
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=.5\linewidth]{ELAIFig.jpg}
+\end{center}
+\end{figure}
+
+\end{frame}
+
+
 
 
 \begin{frame}[fragile]
@@ -543,6 +579,103 @@ Livio Casarini  et al. Clin Endocrinol Metab, 2014, 99(11):E2412
 \end{center}
 \end{figure}
 \end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Recombinaci\'on}
+
+\begin{itemize}
+\item Otro an\'alisis relevante que se puede hacer a partir de los patrones de LD es el mapa de recombinaci\'on
+\item {\tt LDhat} es un software que ha sido utilizado para derivar los mapas de recombinaci\'on de CEU, YRI y CHB-JPT de HapMap II
+\end{itemize}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=.7\linewidth]{LDHAT.png}
+\end{center}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Recombinaci\'on}
+
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=.7\linewidth]{recomb.png}
+\end{center}
+\end{figure}
+
+McVean et al. 2004. Science 304: 581-584. 
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Selecci\'on}
+
+Haplotipos mas extensos de lo usual pueden dar señales de selecci\'on. 
+iHS propuesta por Voight et al. es una extensi\'on de EHH (extended haplotype homozygosity): los haplotipos alrededor de un SNP en selecci\'on tieneden a aumentar su homocigosidad r\'apidamente en comparaci\'on con la deriva gen\'etica.  
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Selecci\'on}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=.7\linewidth]{iHS.png}
+\end{center}
+\end{figure}
+
+Voight et al. 2006. PLos Genetics.  
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Filogenia}
+
+Si tenemos una region espec\'ifica en donde la estructura haplotipica es interesante podemos calcular la filogenia entre haplotipos (R package phyclust)
+
+15q24 es una regi\'on con multiples haplotipos, entre duplicaciones segmentales que predisponen a duplicaciones y deleciones. 
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=.7\linewidth]{man2c1.PNG}
+\end{center}
+\end{figure}
+
+
+Caceres et al 2016 PLos One
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Ancestr\'ia Neardental}
+Otra cosa interesante que se puede hacer es derivar el contenido de alelos neardentales en las poblaciones
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=.5\linewidth]{near1.png}
+\end{center}
+\end{figure}
+
+Sankararaman et al 2014. Nature
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Ancestr\'ia Neardental}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=1\linewidth]{near2.png}
+\end{center}
+\end{figure}
+
+Sankararaman et al 2014. Nature
+\end{frame}
+
 
 
 \end{document}
