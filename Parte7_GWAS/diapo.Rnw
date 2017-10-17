@@ -6,33 +6,266 @@
 # smaller font size for chunks
 opts_chunk$set(size = 'footnotesize')
 @
-\title{A Minimal Demo of knitr}
-\author{Paul Hiemstra \and Yihui Xie}
+\title{Introducci\'on a la Gen\'omica \\ UNAL nov 2017}
+\author{Alejandro C\'aceres \\ ISGlobal, Barcelona}
+
 
 \maketitle
-
 % very important to use option [fragile] for frames containing code output!
 
 \begin{frame}[fragile]
-You can test if \textbf{knitr} works with this minimal demo. OK, let's
-get started with some boring random numbers:
+\frametitle{Genome-wide association studies}
 
-<<boring-random>>=
-set.seed(1121)
-(x=rnorm(20))
-mean(x);var(x)
+En los estudios de asociaci\'on gen\'etica se prueba la correlaci\'on (associaci\'on) entre los SNPs y un fenotipo de inter\'es. Siven para
+
+\begin{itemize}
+\item identificar variantes gen\'eticos que den pistas sobre el desarrollo del fenotipo (enfermedad)
+\item medir la carga gen\'etica (heredabilidad) de un fenotipo
+\item crear modelos de riezgo gen\'etico que predigan la probabilidad de desarrollar una enfermedad. 
+\item para ver los variantes funcionales que afectan  endofenotipos como expresi\'on genica (eQTls) 
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Genome-wide association studies}
+Una Gran cantidad de GWAS se han hecho hasta el momento. Se puden consultar en GWAS catalog
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=.5\linewidth]{gwasw.jpg}
+\end{center}
+\end{figure}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+\frametitle{Genome-wide association studies}
+Una Gran cantidad de GWAS se han hecho hasta el momento. Se puden consultar en GWAS catalog
+\begin{figure}
+\begin{center}
+\includegraphics[width=.5\linewidth]{cat.png}
+\end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Genome-wide association studies}
+Ejercicio: 
+\begin{itemize}
+\item buscar en el GWAS catalog los resultados de estudios de Alzheimer's.
+\item buscar cuales GWAS han encontrado variantes geneticos en BRCA1
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Software}
+
+Han una gran cantidad de software para hacer estos an\'alisis
+\begin{itemize}
+\item PLINK, rapido pero por linea de comandos. Da poca flexibilidad 
+\item snpStats mas lento pero se pueden aprovechar los paquetes de R
+\item codigo en R. Se puede usar cualquier tipo de test. Lo ideal es paralelizar.
+\item snpAssoc. Tambien en R. Para estudios con n\'umero limitado de SNPs pero prueba todos lo modelos geneticos y ajusta por el n\'umero de tests.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{PLINK}
+PLINK tiene unos datos de prueba y y unos ejemplos de analisis sobre ellos
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=.8\linewidth]{plink.png}
+\end{center}
+\end{figure}
+
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{snpStats}
+Veamos un ejmplo de analis con snpStats \\
+Cargamos los genotipos
+<<library>>=
+library("snpStats")
+
+load("datos/snp.RData")
+snp
 @
 \end{frame}
 
 \begin{frame}[fragile]
-The first element of \texttt{x} is \Sexpr{x[1]}. Boring boxplots
-and histograms recorded by the PDF device:
-
-<<boring-plots, fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
-## two plots side by side (option fig.show='hold')
-boxplot(x)
-hist(x,main='')
+\frametitle{snpStats}
+cargamos los fenotipos
+<<>>=
+phenos<-read.table("datos/phenosCont.txt",header=TRUE)
+head(phenos)
 @
 \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{snpStats}
+An\'alisis de asociaci\'on
+<<>>=
+results <- snp.rhs.tests(phenos$caco~1, snp.data=snp)
+results[1:10]
+@
+en la sintaxis se omite efecto de interes de los SNPs en la correlaci\'on.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{snpStats}
+
+El Q-Q plot compara los p-valores obtenidos con los p-vlaores que esperar\'iamos por azar
+<<plot1,fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
+qq.chisq(chi.squared(results), 1)
+@
+vamos que los p-vlaores obtenidos son t\'ipicamente mas altos, est\'an inflados.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Correcci\'on por estratificaci\'on poblacional}
+Si el fenotipo se correlaciona con la ancestr\'ia y esta es detectada por los SNPs, los valores de correlaci\'on entre fenotipo y SNPs est\'an confundidos porla ancestr\'ia. Debemos corregir por la ancestr\'a como una covariable.   
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Correcci\'on por estratificaci\'on poblacional}
+Incluimos la ancestria pop en la asociaci\'on
+<<plot2,fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
+resultsAd <- snp.rhs.tests(phenos$caco~phenos$pop, snp.data=snp)
+qq.chisq(chi.squared(resultsAd), 1)
+@
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Correcci\'on por estratificaci\'on poblacional}
+Si no tenemos los datos de ancestr\i'a los podemos inferir de la PCA de los SNPs
+<<plot3,fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
+snpnum<-matrix(as.numeric(snp),ncol=ncol(snp))
+d<-dist(snpnum, method="manhattan")
+mds<- cmdscale(d,eig=TRUE, k=2)$points
+plot(mds,col=phenos$pop)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Correcci\'on por estratificaci\'on poblacional}
+Incluimos PCAs en la asociaci\'on
+<<plot4,fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
+resultsAdPCA <- snp.rhs.tests(phenos$caco~mds[,1]+mds[,2], snp.data=snp)
+
+qq.chisq(chi.squared(resultsAdPCA), 1)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{associaci\'on en R}
+Para tener mas control en las asociaciones se pueden usar las funciones b\'asicas de R como {\tt glm}.
+<<>>=
+mod<-glm(phenos$caco~snpnum[,1]+mds[,1]+mds[,2], family="binomial")
+summary(mod)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{associaci\'on en R}
+la informaci\'on para la asociaci\'on del primer SNP se exptrae como
+<<>>=
+summod<-summary(mod)
+summod$coeff
+summod$coeff[2,c(1,4)]
+@
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{associaci\'on en R}
+La informaci\'on para todos los SNPs.
+<<>>=
+pvals<-sapply(1:ncol(snpnum), function(j)
+{  
+  mod<-glm(phenos$caco~snpnum[,j]+mds[,1]+mds[,2], family="binomial")
+  summod<-summary(mod)
+  summod$coeff
+  summod$coeff[2,c(1,4)]
+})
+head(t(pvals))
+@
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{associaci\'on en R}
+Los resultados son id\'enticos a los obtenidos con snpStats
+
+<<plot5,fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
+plot(p.value(resultsAdPCA), pvals[2,])
+@
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Genome-wide association studies}
+Elementos importantes a considerar.
+
+\begin{itemize}
+\item Usamos p-valores para identificar los SNPs que mas se correlacionan con el fenotipo
+\item la verdadera hip\'otesis del estudio es si existe \emph{alg\'un} SNP que se correlacione con el fenotipo
+\item si nos creemos SNPs con $p<0.05$ entonces siempre identificar\'iamos al rededor de $5\%$ de asociaciones significativas, que son realmente puro azar. 
+\item tememos que ajustar por el n\'umero de SNPs que probamos y creernos solo $p=0.05/nunSNPs$
+\item en GWAS de 1 millon de SNPs esto significa  $p<10^{-8} $
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Ejercicio}
+
+\begin{itemize}
+\item Estudio de asociaci\'on en c\'odigo R si ajustamos por la ancestr\'ia dada por la variable {\tt pop} en {\tt phenos}.
+\item comparar con los pvalores que obtuvimos antes
+\item Qu\'e podemos decir en t\'erminos de poder estad\'istico y falsos positivos?
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Ejercicio}
+
+<<>>=
+pvalsPop<-sapply(1:ncol(snpnum), function(j)
+{  
+  mod<-glm(phenos$caco~snpnum[,j]+phenos$pop, family="binomial")
+  summod<-summary(mod)
+  summod$coeff
+  summod$coeff[2,c(1,4)]
+})
+
+@
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Ejercicio}
+
+<<plot6,fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
+plot(pvals[2,],pvalsPop[2,])
+@
+\end{frame}
+
 
 \end{document}
