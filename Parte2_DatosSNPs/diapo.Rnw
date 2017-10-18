@@ -158,7 +158,21 @@ NA093 2   0    1      1
 \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{PLINK}
+en https://www.cog-genomics.org/plink/1.9/resources hay datos de prueba para aprender a usar PLINK
 
+Si PLINK esta instalado
+\begin{itemize}
+\item bajar  1kg$\_$phase1$\_$chr22.tar.gz
+\item descomprimir
+\item ejecutar 
+\end{itemize}
+
+{\tt plink --bfile 1kg$\_$phase1$\_$chr22 --make-bed --chr 22 --out mydata --to-mb 20}
+
+Esto selecciona unos datos del cromosoma 22 hasta 20 Mb y los guarda en mydata.bed, mydata.fam y mydata.bim
+\end{frame}
 
 
 \begin{frame}[fragile]
@@ -191,21 +205,65 @@ biocLite("snpStats")
 \begin{frame}[fragile]
 \frametitle{SNPstats}
 
-se carga con 
-
+la librer\'ia se carga con
 <<library>>=
 library("snpStats")
 @
 
-puede leer datos de PLINK (formato .bed) mediante la funci\'on 
+cargemos los datos
+<<>>=
+snp<-read.plink("datos/mydata")
+@
+Un error t\'ipico de cuando algunos SNPs no est\'an anotados
+\end{frame}
 
-<<eval=FALSE>>=
-snp<-read.plink(misDatos)
+
+\begin{frame}[fragile]
+\frametitle{SNPstats}
+Veamos cuales son los SNPs que estan anotados
+
+<<>>=
+bim<-read.table("datos/mydata.bim",as.is=TRUE)
+
+rs<-bim[,2]
+tb<-table(rs)
+dup<-tb[tb>1]
+selrs<-rs[!rs%in%names(dup)]
+
+head(rs)
 @
 
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{SNPstats}
+Lamos los SNPs anotados con la apoci\'on {\tt select.snps}
+<<>>=
+snp<-read.plink("datos/mydata", select.snps = selrs)
+names(snp)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{SNPstats}
+<<>>=
+snp$genotypes
+@
+<<>>=
+head(snp$fam)
+@
+
+<<>>=
+head(snp$map)
+@
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{SNPstats}
 se pueden guardar como binarios de R snp.RData
 <<eval=FALSE>>=
-save(snp, file="snp.RData")
+save(snp, file="datos/mydata.RData")
 @
 
 tambi\'en se pueden guardar datos de snpStats en PLINK con {\tt write.plink}
@@ -215,7 +273,7 @@ tambi\'en se pueden guardar datos de snpStats en PLINK con {\tt write.plink}
 \begin{frame}[fragile]
 \frametitle{SNPstats}
 
-se pueden cargar los binarios {\tt snp.RData}
+Estos son solo genotipos guardados en binario {\tt snp.RData} 
 <<loadData>>=
 load("datos/snp.RData")
 @

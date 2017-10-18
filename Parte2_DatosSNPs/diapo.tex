@@ -206,7 +206,21 @@ NA093 2   0    1      1
 \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{PLINK}
+en https://www.cog-genomics.org/plink/1.9/resources hay datos de prueba para aprender a usar PLINK
 
+Si PLINK esta instalado
+\begin{itemize}
+\item bajar  1kg$\_$phase1$\_$chr22.tar.gz
+\item descomprimir
+\item ejecutar 
+\end{itemize}
+
+{\tt plink --bfile 1kg$\_$phase1$\_$chr22 --make-bed --chr 22 --out mydata --to-mb 20}
+
+Esto selecciona unos datos del cromosoma 22 hasta 20 Mb y los guarda en mydata.bed, mydata.fam y mydata.bim
+\end{frame}
 
 
 \begin{frame}[fragile]
@@ -243,8 +257,7 @@ se instalala como desde R por medio de los comandos
 \begin{frame}[fragile]
 \frametitle{SNPstats}
 
-se carga con 
-
+la librer\'ia se carga con
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -257,21 +270,120 @@ se carga con
 {\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: Matrix}}\end{kframe}
 \end{knitrout}
 
-puede leer datos de PLINK (formato .bed) mediante la funci\'on 
+cargemos los datos
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{snp}\hlkwb{<-}\hlkwd{read.plink}\hlstd{(}\hlstr{"datos/mydata"}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning: non-unique value when setting 'row.names': '.'}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in `row.names<-.data.frame`(`*tmp*`, value = value): duplicate 'row.names' are not allowed}}\end{kframe}
+\end{knitrout}
+Un error t\'ipico de cuando algunos SNPs no est\'an anotados
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{SNPstats}
+Veamos cuales son los SNPs que estan anotados
 
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{snp}\hlkwb{<-}\hlkwd{read.plink}\hlstd{(misDatos)}
+\hlstd{bim}\hlkwb{<-}\hlkwd{read.table}\hlstd{(}\hlstr{"datos/mydata.bim"}\hlstd{,}\hlkwc{as.is}\hlstd{=}\hlnum{TRUE}\hlstd{)}
+
+\hlstd{rs}\hlkwb{<-}\hlstd{bim[,}\hlnum{2}\hlstd{]}
+\hlstd{tb}\hlkwb{<-}\hlkwd{table}\hlstd{(rs)}
+\hlstd{dup}\hlkwb{<-}\hlstd{tb[tb}\hlopt{>}\hlnum{1}\hlstd{]}
+\hlstd{selrs}\hlkwb{<-}\hlstd{rs[}\hlopt{!}\hlstd{rs}\hlopt{%in%}\hlkwd{names}\hlstd{(dup)]}
+
+\hlkwd{head}\hlstd{(rs)}
 \end{alltt}
+\begin{verbatim}
+## [1] "rs149201999" "rs146752890" "rs139377059" "rs188945759" "rs6518357"  
+## [6] "rs62224609"
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{SNPstats}
+Lamos los SNPs anotados con la apoci\'on {\tt select.snps}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{snp}\hlkwb{<-}\hlkwd{read.plink}\hlstd{(}\hlstr{"datos/mydata"}\hlstd{,} \hlkwc{select.snps} \hlstd{= selrs)}
+\hlkwd{names}\hlstd{(snp)}
+\end{alltt}
+\begin{verbatim}
+## [1] "genotypes" "fam"       "map"
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{SNPstats}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{snp}\hlopt{$}\hlstd{genotypes}
+\end{alltt}
+\begin{verbatim}
+## A SnpMatrix with  1092 rows and  43067 columns
+## Row names:  HG00096 ... NA20828 
+## Col names:  rs149201999 ... rs145875228
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{head}\hlstd{(snp}\hlopt{$}\hlstd{fam)}
+\end{alltt}
+\begin{verbatim}
+##         pedigree  member father mother sex affected
+## HG00096       NA HG00096   <NA>   <NA>   1       NA
+## HG00097       NA HG00097   <NA>   <NA>   2       NA
+## HG00099       NA HG00099   <NA>   <NA>   2       NA
+## HG00100       NA HG00100   <NA>   <NA>   2       NA
+## HG00101       NA HG00101   <NA>   <NA>   1       NA
+## HG00102       NA HG00102   <NA>   <NA>   2       NA
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{head}\hlstd{(snp}\hlopt{$}\hlstd{map)}
+\end{alltt}
+\begin{verbatim}
+##             chromosome    snp.name cM position allele.1 allele.2
+## rs149201999         22 rs149201999 NA 16050408        C        T
+## rs146752890         22 rs146752890 NA 16050612        G        C
+## rs139377059         22 rs139377059 NA 16050678        T        C
+## rs188945759         22 rs188945759 NA 16050984        G        C
+## rs6518357           22   rs6518357 NA 16051107        A        C
+## rs62224609          22  rs62224609 NA 16051249        C        T
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{SNPstats}
 se pueden guardar como binarios de R snp.RData
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlkwd{save}\hlstd{(snp,} \hlkwc{file}\hlstd{=}\hlstr{"snp.RData"}\hlstd{)}
+\hlkwd{save}\hlstd{(snp,} \hlkwc{file}\hlstd{=}\hlstr{"datos/mydata.RData"}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -283,7 +395,7 @@ tambi\'en se pueden guardar datos de snpStats en PLINK con {\tt write.plink}
 \begin{frame}[fragile]
 \frametitle{SNPstats}
 
-se pueden cargar los binarios {\tt snp.RData}
+Estos son solo genotipos guardados en binario {\tt snp.RData} 
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
