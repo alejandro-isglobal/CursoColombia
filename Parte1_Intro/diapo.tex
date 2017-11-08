@@ -56,8 +56,8 @@
 %\SweaveOpts{concordance=TRUE}
 
 \title{Introducci\'on a la Gen\'omica \\ UNAL nov 2017}
-\author{Alejandro Caceres \\ ISGlobal, Barcelona}
-
+\author{Alejandro C\'aceres \\ ISGlobal, Barcelona}
+\date{}
 
 \maketitle
 
@@ -66,25 +66,25 @@
 \begin{frame}[fragile]
 \frametitle{Gen\'omica}
 
-Estudio de la biolo\'ia del genoma
+Estudio de la biolog\'ia del genoma
 \begin{itemize}
 \item Estructura
    \begin{itemize}
      \item Variantes estructurales: SNPs, detetions, translocaciones, CNVs, inversiones, etc
-     \item Topología: Regulacion de la chromatina, Topological association domains(TADs), etc
+     \item Topología: Regulaci\'on de la chromatina, Topological association domains (TADs), etc
    \end{itemize}
 \item Funci\'on
    \begin{itemize}
+      \item Productos moleculares del genoma
+      \item Tránscritos, microRNAs
       \item Regulaci\'on de la expresi\'on g\'enica
-      \item Regulaci\'on de la microRNA
-      \item Productor moleculares del genoma
    \end{itemize}
 \item Effectos sobre otros niveles biol\'ogicos de inter\'es
    \begin{itemize}
-     \item Rol del genoma en funciones fisiologicas
+     \item Rol del genoma en funciones fisiol\'ogicas
      \item Rol del genoma en diferencias (heredables) entre individuos 
      \item Rol del genoma en la adaptacion de individuos a su ambiente
-     \item Rol del genoma en la evolucion
+     \item Rol del genoma en la evoluci\'on
    \end{itemize}
 \end{itemize}
 \end{frame}
@@ -92,11 +92,11 @@ Estudio de la biolo\'ia del genoma
 \begin{frame}[fragile] 
 \frametitle{Gen\'omica}
 
-La biolo\'ia del genoma tambi\'en incluye interacciones
+La biolog\'ia del genoma tambi\'en incluye interacciones
 
 \begin{itemize}
   \item C\'omo la estructura determina funci\'on
-  \item C\'omo la estructura determina las characteristicas heredables
+  \item C\'omo la estructura determina las caracter\'isticas heredables
   \item C\'omo la estructura influye en la adaptaci\'on
 \end{itemize}
 
@@ -124,6 +124,19 @@ La biolo\'ia del genoma tambi\'en incluye interacciones
 \end{frame}
 
 
+
+\begin{frame}[fragile] 
+\frametitle{SNPs}
+
+\begin{itemize}
+  \item Son variantes bi-al\'elicas
+  \item Individuos son BB (homocigotos), Bb (heterocigotos), bb (homocigotos variantes)
+  \item B y b toman 4 posibles valores: adenina (a), timina (t), citocina (c), guanina (g)
+ \item En una poblaci\'on la frecuencia de al\'elica b es $>0.1\%$ 
+\end{itemize}
+\end{frame}
+
+
 \begin{frame}[fragile] 
 \frametitle{SNPs}
 
@@ -133,7 +146,7 @@ La biolo\'ia del genoma tambi\'en incluye interacciones
  \item en total acumulan gran cantidad de variabilidad gen\'etica 
 \end{itemize}
 
-Su estudio a nivel individual, local y global es esencial para entender procesos genómicos
+Su estudio a nivel individual, local y global es escencial para entender procesos gen\'omicos
 \end{frame}
 
 \begin{frame}[fragile] 
@@ -158,7 +171,7 @@ Propiedades:
 \begin{itemize}
   \item Mutaciones Mendelianas
   \item Taza de mutaci\'on $10^8$ generaciones
-  \item Sometidos a deriva gen\'etica, selecci\'on o migraci\'on 
+  \item Sus frecuencias al\'elicas est\'an sometidas a deriva gen\'etica, selecci\'on o migraci\'on 
 \end{itemize}
 
 \end{frame}
@@ -166,35 +179,22 @@ Propiedades:
 
 \begin{frame}[fragile] 
 \frametitle{SNPs}
-Estructura local
 
 \begin{itemize}
-  \item Est\'an sometidos a recombinación
-  \item Que dos SNPs recombinene depende de su distancia
-  \item Por tanto SNPs locales estan correlacionados
+  \item SNPs cercanos est\'an altamente correlacionados
+  \item Cada par de SNPs est\'a sometido a recombinaci\'on
+  \item La probabilidad de recombinaci\'on entre SNPs incrementa con su distancia
+  \item Por lo tanto SNPs lejanos no se correacionan 
 \end{itemize}
 
 \end{frame}
 
 
-\begin{frame}[fragile] 
-\frametitle{Correlaci\'on entre SNPs}
-Estructura local
-
-\begin{itemize}
-  \item Est\'an sometidos a recombinación
-  \item Que dos SNPs recombinene depende de su distancia
-  \item Por tanto SNPs locales estan correlacionados
-\end{itemize}
-\end{frame}
-
-
 
 \begin{frame}[fragile] 
-\frametitle{LD}
-Estructura local
+\frametitle{LD: Cromosomas}
 
-Correlaci\'on o Linkage Disequilibrium entre SNPs se mide con 
+Correlaci\'on o Linkage Disequilibrium (LD) entre dos SNPs (por ejemplo con alelos: A/T y C/A) se mide con lo que se desv\'ian las casillas de la tabla de contingencia,
 
 \begin{table}[]
 \centering
@@ -205,14 +205,15 @@ A &  $x_{AA}$  &  $x_{AT}$  &  $q_A$  \\ \hline
 Total & $p_A$  &  $p_T$  &   1 \\
 \end{tabular}
 \end{table}
-Lo que se desvían las casillas de la asociaci\'on por azar:
+de la asociaci\'on por azar
+
 $D=p_A*q_C - x_{CA}$ o $D=-p_C*q_T + x_{CT}$, ...
 \end{frame}
 
 
 \begin{frame}[fragile] 
-\frametitle{LD}
-SNPs se genotipan individualmente por lo que la fase se pierde! 
+\frametitle{LD: genotipos}
+En los microarrays los SNPs se genotipan individualmente por lo que la fase se pierde! 
 
 \begin{table}[]
 \centering
@@ -224,7 +225,9 @@ A/A=2 &  $y_{20}$  &  $y_{21}$ & $y_{22}$ & $q_1^2$  \\ \hline
 Total & $p_0^2$  &  $2*p_0*p_1$  & $p_1^2$ &   1 \\
 \end{tabular}
 \end{table}
-$x_{CA} =2*y_{00} + y_{01} + y_{10} +n*y_{11}$, n? 
+$x_{CA} =2*y_{00} + y_{01} + y_{10} +n*y_{11}$ 
+
+pero $n=?$ 
 \end{frame}
 
 
@@ -287,8 +290,8 @@ Los haplotipos son la principal estructura que generan los SNPs
 Son indicativos de
 \begin{itemize}
 \item historia evolutiva: haplotipos en EU son mas grandes que en AF
-\item patrones especificos de recombinacion: Diferencias en hotspots
-\item presencia de otros variantes etructurales que repimen la recombinacion.
+\item patrones especif\'icos de recombinaci\'on: Diferencias en hotspots
+\item presencia de otros variantes estructurales que suprimen la recombinaci\'on.
 \end{itemize}
 
 \end{frame}
@@ -312,14 +315,14 @@ entonces pocos SNPs pueden taggear los haplotipos''
 Si tenemos los haplotipos de referencia de una poblaci\'on
 \begin{itemize}
 \item Podemos predecir los SNPs no genotipados (imputar)
-\item Podemos encontrar una asociacion funcional en regiones alrededor de un SNP causal
+\item Podemos encontrar una asociaci\'on funcional en regiones alrededor de un SNP causal
 \item No hay que genotiparlos todos los SNPs
 \end{itemize}
 
 sin embargo
 \begin{itemize}
-\item no tendremos infomaci\'on sobre variantes mas raras u espec\'ificas
-\item cada poblaci\'on tiene una historia evolutiva diferente
+\item No tendremos infomaci\'on sobre variantes mas raras o espec\'ificas
+\item Cada poblaci\'on tiene una historia evolutiva diferente
 \end{itemize}
 
 \end{frame}
@@ -328,20 +331,21 @@ sin embargo
 
 \begin{frame}[fragile] 
 \frametitle{T\'ecnicas de genotipaci\'on}
-
-Secuenciaci\'on
 \begin{itemize}
-\item los SNPs son variantes estructurales por lo que la secuenciación es método ideal
-\item es cara y estudios de cohortes son hoy en dia impensables
+\item Secuenciaci\'on
+\begin{itemize}
+\item los SNPs son variantes estructurales por lo que la secuenciaci\'on es m\'etodo ideal
+\item es cara y estudios de cohortes son hoy en d\'ia impensables
 \end{itemize}
 
-hibridaci\'on
+\item Hibridaci\'on
 \begin{itemize}
 \item se pueden sintetizar millones de sondas fluoresentes y ponerlas en un chip (miroarrays)
 \item es barato y se puede hacer en miles de individuos
 \item hay que conocer que sondas hay que poner
 \item las sondas dependen de una poblaci\'on de referencia 
-\item no es un metodo para descubrir variantes desconocidas
+\item no es un m\'etodo para descubrir variantes desconocidas
+\end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -400,7 +404,7 @@ Es el software de Illumina para hacer el genotipado de los SNPs (clustering)
 
 \begin{itemize}
 \item produce los genotipos en formato PLINK 
-\item datos de B-allele freq y log2ratio son \'utiles para el gentipado de mosaicismos y CNVs (no lo hace GenomeStudio)
+\item datos de B-allele freq y log2ratio son \'utiles para el genotipado de mosaicismos y CNVs (no lo hace GenomeStudio)
 \end{itemize}
 
 \end{frame}
@@ -410,7 +414,7 @@ Es el software de Illumina para hacer el genotipado de los SNPs (clustering)
 
 \begin{frame}[fragile]
 \frametitle{Genome-wide SNPs}
-SNPs genome-wide: barrido genomico con alguna resoluci\'on
+SNPs genome-wide: barrido gen\'omico con alguna resoluci\'on
 
 objetivo: determinar a que cromosoma de un individuo corresponde cada alelo
 
@@ -450,10 +454,10 @@ menos com\'un chr & C  &-&  T &-& G &-& A\\
 Recordemos: Si tenemos los haplotipos de referencia de una poblaci\'on
 \begin{itemize}
 \item Podemos predecir los SNPs no genotipados (imputar)
-\item Podemos encontrar una asociacion funcional en regiones alrededor de un SNP causal
-\item No hay que genotiparlos todos los SNPs
+\item Podemos encontrar una asociaci\'on funcional en regiones alrededor de un SNP causal
+\item No hay que genotipar todos los SNPs
 \end{itemize}
-es una estimaci\'on de la varuiabilidad gen\'etica de la poblaci\'on
+es una estimaci\'on de la variabilidad gen\'etica de la poblaci\'on
 
 \end{frame}
 
@@ -463,7 +467,7 @@ es una estimaci\'on de la varuiabilidad gen\'etica de la poblaci\'on
 Un proyecto de libre acceso a los datos
 
 \begin{center}
-\includegraphics[width=0.5\linewidth]{hapmap.png}
+\includegraphics[width=0.7\linewidth]{hapmap.png}
 \end{center}
 
 public\'o los \'ultimos datos (fase III) en el 2009.
@@ -496,7 +500,7 @@ HapMap III
 \frametitle{1000 genomes}
 
 \begin{center}
-\includegraphics[width=0.5\linewidth]{1kG.jpg}
+\includegraphics[width=0.7\linewidth]{1kG.jpg}
 \end{center}
 \end{frame}
 
@@ -520,29 +524,19 @@ R\'apidamente HapMap fue remplazado por los 1000 Genomas
 \frametitle{1000 Genomes}
 
 \begin{center}
-\includegraphics[width=0.5\linewidth]{1000_Genomes.png}
+\includegraphics[width=0.7\linewidth]{1000_Genomes.png}
 \end{center}
 Datos publicados el 2012
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Otros proyectos}
-
-\begin{itemize}
-\item     100 000 Genomes lanzado el 2014 (UK)
-\item     Simons genome diversity proyect 300 individuos de 142 poblaciones lanzado 2016
-\item     The haplotye reference consortium 
-\end{itemize}
-
-\end{frame}
 
 \begin{frame}[fragile]
 \frametitle{The haplotye reference consortium}
 
 \begin{itemize}
-\item     100 000 Genomes lanzado el 2014 (UK)
+\item     100,000 Genomes lanzado el 2014 (UK)
 \item     Simons genome diversity proyect 300 individuos de 142 poblaciones lanzado 2016
-\item     The haplotye reference consortium  64,976 individuos 39Millones de SNPs
+\item     The haplotye reference consortium  64,976 individuos 39 millones de SNPs
 \end{itemize}
 
 \end{frame}
@@ -551,7 +545,7 @@ Datos publicados el 2012
 \frametitle{The haplotye reference consortium}
 
 \begin{center}
-\includegraphics[width=0.5\linewidth]{haplotref.png}
+\includegraphics[width=0.7\linewidth]{haplotref.png}
 \end{center}
 Datos publicados el 2012
 \end{frame}
@@ -575,9 +569,9 @@ Una vez identificados los haplotipos de referencia
 La variabilidad g\'enetica dada por los haplotipos de referencia contribuye a determinar:
 
 \begin{itemize}
-\item la especificidad y frequencia de haplotipos 
-\item medidas globales de heterocigocidad 
-\item medidas globales de fijacion (FST)
+\item la especificidad y frecuencia de haplotipos 
+\item medidas globales de heterocigosidad 
+\item medidas globales de fijaci\'on (FST)
 \item patrones de recombiaci\'on
 \item la presencia de otras variantes gen\'eticas (CNVs, mosaicismos o inversiones)
 \end{itemize}
@@ -586,7 +580,7 @@ La variabilidad g\'enetica dada por los haplotipos de referencia contribuye a de
 
 \begin{frame}[fragile]
 \frametitle{Variabilidad gen\'etica}
-estudios comparativos permite estudiar
+estudios comparativos permite estimar
 \begin{itemize}
 \item la distancia gen\'etica a otras poblaciones 
 \item evidencia de selecci\'on en regiones particulares
@@ -612,7 +606,7 @@ estudios comparativos permite estudiar
 Tener un panel de referencia permite
 \begin{itemize}
 \item estimar las frecuencias que se esperan en la poblaci\'on general 
-\item tener un grupo ''control´´
+\item tener un grupo ``control''
 \item estudiar el contexto gen\'etico de los efectos de un SNP de riezgo
 \item integrar estudios de asociacion gen\'etica (imputaci\'on)
 \end{itemize}
@@ -626,10 +620,10 @@ Tener un panel de referencia permite
 Los GWAS pretenden encontrar los SNPs de riezgo a una enfermedad (caracter\'istica heredable)
 
 \begin{center}
-\includegraphics[width=0.5\linewidth]{alz.jpg}
+\includegraphics[width=0.7\linewidth]{alz.jpg}
 \end{center}
 
-Se basan en la hipotesis de que enfermedades comumunes pueden ser explicadas por variantes comunes
+Se basan en la hip\'otesis de que enfermedades comumunes pueden ser explicadas por variantes comunes
 \end{frame}
 
 
@@ -639,7 +633,7 @@ Se basan en la hipotesis de que enfermedades comumunes pueden ser explicadas por
 Los GWAS pretenden encontrar los SNPs de riezgo a una enfermedad (caracter\'istica heredable)
 
 \begin{center}
-\includegraphics[width=0.5\linewidth]{alz.jpg}
+\includegraphics[width=0.7\linewidth]{alz.jpg}
 \end{center}
 
 Se basan en la hip\'otesis de que enfermedades comumunes pueden ser explicadas por variantes comunes
@@ -651,7 +645,7 @@ Se basan en la hip\'otesis de que enfermedades comumunes pueden ser explicadas p
 
 Hay miles de estudios reportados
 \begin{center}
-\includegraphics[width=0.5\linewidth]{gwascat.jpg}
+\includegraphics[width=0.7\linewidth]{gwascat.jpg}
 \end{center}
 \end{frame}
 
@@ -659,7 +653,7 @@ Hay miles de estudios reportados
 \begin{frame}[fragile]
 \frametitle{Estudios de asociaci\'on gen\'etica}
 
-Se encuentran muchos efectos pequeños aditivos por lo que es necesario grandes estudios 
+Se encuentran muchos efectos pequenos aditivos por lo que es necesario grandes estudios 
 \begin{center}
 \includegraphics[width=0.7\linewidth]{neurotic.jpg}
 \end{center}
@@ -675,7 +669,7 @@ Se encuentran muchos efectos pequeños aditivos por lo que es necesario grandes 
 
 \begin{frame}[fragile]
 \frametitle{Estudios de asociaci\'on gen\'etica}
-Cada cohorte tiene unos datos de SNPs particulares, difrente densidad de SNPs.
+Cada cohorte tiene unos datos de SNPs particulares, diferente densidad de SNPs.
 \begin{itemize}
 \item  la imputaci\'on de los datos es necesaria para integrar las cohortes
 \item  la imputaci\'on depende de los haplotipos de referencia
@@ -689,14 +683,14 @@ Cada cohorte tiene unos datos de SNPs particulares, difrente densidad de SNPs.
 
 Variabilidad gen\'etica
 \begin{itemize}
-\item  estructura de los haplotipos por regiones
+\item  estructura de los haplotipos por regiones geogr\'aficas
 \item  diferencias con haplotipos en otras poblaciones globales
 \item  estructura de los haplotipos mestizos
 \item  haplotipos indigenas
 \item  los puntos de recombinaci\'on son facilmente identificables 
 \item  effectos de migraci\'on
-\item  señales de selecci\'on
-\item  frequencia de otros variantes estructurales
+\item  senales de selecci\'on
+\item  frecuencia de otros variantes estructurales
 \end{itemize}
 
 \end{frame}
