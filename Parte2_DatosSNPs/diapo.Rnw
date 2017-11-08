@@ -7,7 +7,7 @@
 opts_chunk$set(size = 'footnotesize')
 @
 \title{Introducci\'on a la Gen\'omica \\ UNAL nov 2017}
-\author{Alejandro Caceres \\ ISGlobal, Barcelona}
+\author{Alejandro C\'aceres \\ ISGlobal, Barcelona}
 
 
 \maketitle
@@ -18,11 +18,11 @@ opts_chunk$set(size = 'footnotesize')
 \frametitle{datos de SNPs}
 Cada programa tiene un formato diferente y es importante saber cambiar de formato
 \begin{itemize}
-\item {\tt PLINK}: Es un programa compilado, corre por la linea de comandos y es muy rapido. Es particularmente util para manejar las bases de datos en si, exlcuir sujetos, seleccionar SNPs. No tiene la versatilidad de R para explorar graficos, crear nuevas funciones o hacer graficos, pero es muy utilizado y con experiencia en computacion facil de hacer pipelines.
+\item {\tt PLINK}: Es un programa compilado, corre por la linea de comandos y es muy r\'apido. Es particularmente \'util para manejar las bases de datos en si, exlcuir sujetos, seleccionar SNPs. No tiene la versatilidad de R para explorar gr\'aficos, crear nuevas funciones o hacer gr\'aficos, pero es muy utilizado y con experiencia en computaci\'on f\'acil de hacer pipelines.
 
-\item {\tt snpStats} (bioconductor): Tiene varias funciones para ver la estructura de los datos (linakage-disequilibium, pca, Fst), y hace analisis de asociacion en base de datos grandes, pero no prueba diferentes modelo de herencia. Usa un fromato especial (raw data).
+\item {\tt snpStats} (bioconductor): Tiene varias funciones para ver la estructura de los datos (linakage-disequilibium, pca, Fst), y hace an\'alisis de asociaci\'on en base de datos grandes, pero no prueba diferentes modelo de herencia. Usa un fromato especial (raw data).
 
-\item {\tt snpAssoc} (r-cran): versatil para probar diferentes modelos de herencia, pero las funciones no estan optimizadas para menejar matrices muy grandes. 
+\item {\tt snpAssoc} (r-cran): versatil para probar diferentes modelos de herencia, pero las funciones no est\'an optimizadas para menejar matrices muy grandes. 
 
 \item {\tt tabix} : un programa para gestionar datos en formato VCF usado por los 1000 genomas  
  
@@ -47,7 +47,7 @@ Tiene una documentaci\'on muy completa
 \frametitle{PLINK}
 PLINK tiene dos formatos
 \begin{itemize}
-\item {\tt .bed, .bim, .fam}: es el mas usado y separa la informaci\'on en tres archivos genotipos (.bed), anotacion de SNPs (.bim), fenotipos (.fam)  
+\item {\tt .bed, .bim, .fam}: es el mas usado y separa la informaci\'on en tres: archivos genotipos (.bed), anotacion de SNPs (.bim), fenotipos (.fam)  
 
 \item {\tt .ped, .map}: .ped son los .fam en las primeras columnas y .map es una versi\'on con menos info que .bim
  
@@ -76,7 +76,7 @@ plink --file misDatos --make-bed --out misDatos
 \begin{frame}[fragile]
 \frametitle{Datos de SNPs}
 
-Despues del preprocesamiento de los datos, los datos que se obtienen es de un gentipo por individuo. Si tenemos 1 millon de SNPs y 1000 individuos, esto es tipicamente una matriz de $10^3 \times 10^6$. Hay diferentes formas de organizar estos datos
+Despu\'es del preprocesamiento de los datos, los datos que se obtienen es de un genotipo por individuo. Si tenemos 1 millon de SNPs y 1000 individuos, esto es tipicamente una matriz de $10^3 \times 10^6$. Hay diferentes formas de organizar estos datos
  
 \begin{verbatim}
         rs33  rs36  rs43
@@ -93,8 +93,7 @@ NA093   A/C   C/C   A/A ...
 \begin{frame}[fragile]
 \frametitle{Datos de SNPs}
 
-Hay diferentes formas de organizar estos datos
- 
+
 \begin{verbatim}
         rs33  rs36  rs43
 NA090   A/C   G/G   T/A ...
@@ -115,7 +114,7 @@ Una forma eficiante es llamar 0:homocigoto, 1:heterocigoto y 2:heterocigoto vari
 
 
 \begin{frame}[fragile]
-\frametitle{Datos tipicos de SNPs (PLINK) formato bed}
+\frametitle{Datos t\'ipicos de SNPs (PLINK) formato bed}
 \begin{itemize}
 \item Datos de los genotipos (datos.bed)
 \begin{verbatim}
@@ -130,7 +129,7 @@ NA093   1    2    2 ...
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Datos tipicos de SNPs (PLINK) formato bed}
+\frametitle{Datos t\'ipicos de SNPs (PLINK) formato bed}
 \begin{itemize}
 \item Datos con la anotacion de SNPs (datos.bim)
 \begin{verbatim}
@@ -177,7 +176,7 @@ Esto selecciona unos datos del cromosoma 22 hasta 20 Mb y los guarda en mydata.b
 
 \begin{frame}[fragile]
 \frametitle{SNPstats}
-Es un programa en R (bioconductor)
+Es un programa en R (Bioconductor)
 
 \begin{figure}[htbp]
 \begin{center}
@@ -185,7 +184,7 @@ Es un programa en R (bioconductor)
 \end{center}
 \end{figure}
 
-tiene la ventaja de que esta en ambiente R y se pueden usar otros paquetes de bioconductor
+tiene la ventaja de que esta en ambiente R y se pueden usar otros paquetes de Bioconductor/R
 \end{frame}
 
 
@@ -199,6 +198,8 @@ se instalala como desde R por medio de los comandos
 source("https://bioconductor.org/biocLite.R")
 biocLite("snpStats")
 @
+Todos los paquetes de Bioconductor tienen manuales de usuarios (vineta)
+
 \end{frame}
 
 
@@ -237,7 +238,7 @@ head(rs)
 
 \begin{frame}[fragile]
 \frametitle{SNPstats}
-Lamos los SNPs anotados con la apoci\'on {\tt select.snps}
+Lamos los SNPs anotados usando la opci\'on {\tt select.snps}
 <<>>=
 snp<-read.plink("datos/mydata", select.snps = selrs)
 names(snp)
@@ -261,7 +262,7 @@ head(snp$map)
 
 \begin{frame}[fragile]
 \frametitle{SNPstats}
-se pueden guardar como binarios de R snp.RData
+se pueden guardar como binarios de R {\tt file.RData}
 <<eval=FALSE>>=
 save(snp, file="datos/mydata.RData")
 @
@@ -295,7 +296,7 @@ Repositorio de datos de los 1000 genomas donde se pueden descargar los datos de 
 \includegraphics[width=.6\linewidth]{home1k.png}
 \end{center}
 \end{figure}
-Hay un servidor ftp para descargar datos 
+Hay un servidor ftp para descargar datos. 
 Los archivos son enormes, pero se puden leer por regiones con Tabix
 \end{frame}
 
@@ -449,7 +450,7 @@ save(snpsSNPstats, file="snpsSNPstats.RData")
 
 \begin{frame}[fragile]
 \frametitle{1000 Genomes}
-Los datos de los 1000 genomas (y HapMap)tambien est\'an en formato PLINK por chromosomas
+Los datos de los 1000 genomas (y HapMap) tambi\'en est\'an en formato PLINK por chromosomas
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=.7\linewidth]{plink1kgenomes.png}
@@ -478,10 +479,10 @@ $ plink --vcf [VCF filename] --out [.bed/.bim/.fam prefix]
 \begin{frame}[fragile]
 \frametitle{Ejercicio}
 \begin{itemize}
-\item Descargar datos de los 1000 Genomas en PLINK 
+\item Descargar datos de los 1000 Genomas en formato PLINK 
 \item leerlos en snpStats
 \item si PLINK est\'a instalado convertirlos en VCF
-\item leerlos en snpStats
+\item leerlos en R
 \end{itemize}
 \end{frame}
 
