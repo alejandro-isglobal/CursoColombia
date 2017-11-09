@@ -41,8 +41,5 @@ head(selsnpnames)
 NewsnpsSNPstats<-snpsSNPstats[,selsnpnames]
 NewsnpsSNPstats
 
-## ------------------------------------------------------------------------
-selhw<-abs(sum$z.HWE) < 6
-NewsnpsSNPstats<-snpsSNPstats[, selhw & selectMAF & selectCallRate]
-save(NewsnpsSNPstats, file="NewsnpsSNPstats.RData")
+
 

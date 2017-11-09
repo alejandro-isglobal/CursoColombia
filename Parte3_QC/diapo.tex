@@ -55,7 +55,7 @@
 \begin{document}
 
 \title{Introducci\'on a la Gen\'omica \\ UNAL nov 2017}
-\author{Alejandro Caceres \\ ISGlobal, Barcelona}
+\author{Alejandro C\'aceres \\ ISGlobal, Barcelona}
 
 
 \maketitle
@@ -64,12 +64,12 @@
 
 \begin{frame}[fragile]
 \frametitle{Control de Calidad}
-Los datos de microarrays son sometidos un control de calidad
+Los datos de microarrays son sometidos a control de calidad
 \begin{itemize}
 
-\item {\tt SNPs}: Calidad del genotipado o que biol\'ogimcamente no correspondan a lo esperado 
+\item {\tt SNPs}: Se revisa la calidad del genotipado y que los genotipos biol\'ogimcamente correspondan a lo esperado 
 
-\item {\tt Sujetos}: Sujetos que son ''outliers´´ de la muestra: ancestr\'ia o parentesco 
+\item {\tt Sujetos}: Se identifican sujetos que son ``outliers'' de la muestra por diferencias en ancestr\'ia o parentesco cercano (si es muestra poblacional) 
 
 \end{itemize}
 \end{frame}
@@ -107,7 +107,7 @@ Es el software de Illumina para hacer el genotipado de los SNPs (clustering)
 
 \begin{itemize}
 \item el control de calidad en el genotipado est\'a dado por el clustering
-\item reporta un calldate y un valor del numero de sujetos con genotipado aceptable por SNP 
+\item reporta un callrate y un valor del n\'umero de sujetos con genotipado aceptable por SNP 
 \item genera los genotipos en formato PLINK 
 \end{itemize}
 
@@ -118,8 +118,8 @@ Es el software de Illumina para hacer el genotipado de los SNPs (clustering)
 \frametitle{Control de Calidad por Sujetos}
 
 \begin{itemize}
-\item que el sexo es el reportado o detecci\'on de aneploidías como XXY, XYY, etc 
-\item cosanginidad mas alta de la esperado en el diseño del estudio 
+\item Se revisa el sexo es el reportado por los individuos y se  detecta aneploid\'ias como XXY, XYY, etc 
+\item cosanginidad mas alta de la esperado por el diseno del estudio 
 \end{itemize}
 
 \end{frame}
@@ -130,10 +130,11 @@ Es el software de Illumina para hacer el genotipado de los SNPs (clustering)
 
 La consanginidad (identity by descent) se puede calcular en PLINK por medio de la opci\'on --genome
 
+{\scriptsize
 \begin{verbatim}
 acaceres@IMW00680:~$ plink --bfile [filename prefix] --genome 
 \end{verbatim}
-
+}
 y produce un reporte en el fichero {\tt plink.genome}
 \end{frame}
 
@@ -162,7 +163,7 @@ debemos encontar
 \item $(1-p)^2$ fracci\'on de homocigotos variantes
 \end{itemize}
 
-que se deducen por la asociaci\'on aleatoria entre los cromosomas paternos y maternos
+que se producen por la asociaci\'on aleatoria entre los cromosomas paternos y maternos en la poblaci\'on
 
 
 \end{frame}
@@ -175,11 +176,11 @@ que se deducen por la asociaci\'on aleatoria entre los cromosomas paternos y mat
 SNPs que no est\'an en WHE pueden presentar
 
 \begin{itemize}
-\item Problemas de genotipaci\'on. Por ejemplo una sonda defectuosa en la mitad de la población (Alta disviaci\'on-Probable).
-\item Fuerzas evolutivas sobre el SNP (Baja disviaci\'on-Menons probable)).
+\item Problemas de genotipaci\'on. Por ejemplo una sonda defectuosa en la mitad de la poblaci\'on: se espera una alta desviaci\'on y es una situación probable.
+\item Fuerzas evolutivas sobre el SNP: se espera una desviaci\'on mas moderada y es una situaci\'on menos probable.
 \end{itemize}
 
-Si la desviación en biol\'ogica como en el segundo caso, SNPs vacinos que estan en LD tambi\'en deben estar desviados. 
+Si la desviaci\'on es biol\'ogica como en el segundo caso, SNPs vecinos que est\'an en LD tambi\'en deben estar desviados. 
 
 \end{frame}
 
@@ -188,8 +189,8 @@ Si la desviación en biol\'ogica como en el segundo caso, SNPs vacinos que estan
 Para un estudio con trios los SNPs de 
 \begin{itemize}
 \item dos padres homocigotos para el mismo alelo no pueden tener un hijo que no sea homocigoto
-\item un padre homocigoto y una madre heterocigota no pueden tener un hijo que no sea homocigoto alternativo
-\item un padre homocigoto para un alelo y una madre homocigota para el otro alele no pueden tener un hijo homocigoto para ning\'un alelo 
+\item un padre homocigoto y una madre heterocigota no pueden tener un hijo que no sea homocigoto variante
+\item un padre homocigoto para un alelo y una madre homocigota para el otro alelo no pueden tener un hijo homocigoto para ning\'un alelo 
 \end{itemize}
 
 desviaciones en estas reglas son herrores de trasmisi\'on mendelianos e indican error en genotipaci\'on
@@ -267,7 +268,7 @@ En R cargemos la librer\'ia y los datos
 
 \begin{frame}[fragile]
 \frametitle{SNPStats}
-obtengamos los SNPs con call-rate >0.8
+obtengamos los SNPs con call-rate $>$ 0.8
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -402,7 +403,7 @@ desviaciones en estas reglas son herrores de trasmisi\'on mendelianos e indican 
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{ejercicio}
+\frametitle{Ejercicio-soluci\'on}
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
