@@ -108,4 +108,20 @@ en terminos de ancestr\'ia
 
 \end{frame}
 
+
+\begin{frame}[fragile]
+\frametitle{Inversiones}
+
+Los an\'alisis multivariantes sirven para detectar inversiones polim\'orficas.
+
+Ejercicio:
+\begin{itemize}
+\item Descargar los datos de los 1000 Genomas del cromosoma 17 (p\'agina de PLINK)
+\item cargarlos con snpStats
+\item seleccionar los genotipos de la regi\'on chr17:43670925-44329730
+\item hacer un PCA con los genotipos seleccionados
+\end{itemize}
+
+\end{frame}
+
 \end{document}

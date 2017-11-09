@@ -1,13 +1,12 @@
-\frametitle{PLINK}
+\frametitle{Inversiones}
 
-Debido a que los analisis multivariantes son constosos computacionalmente es mejor usar codigo compilado
-PLINK.
+Los an\'alisis multivariantes sirven para detectar inversiones polim\'orficas.
 
-\begin{verbatim}
-plink --bfile  mydata --pca --out mydata
-plink --bfile  mydata --mds-plot --out mydata --neighbour 1 15
-\end{verbatim}
-Los resultados deben ser muy similares.
---neighbour 1 15 calcula las distancias del primer al 15 vecinos mas cercanos para determinar si un individuo es un outlier
-en terminos de ancestr\'ia
+Ejercicio:
+\begin{itemize}
+\item Descargar los datos de los 1000 Genomas del cromosoma 17 (p\'agina de PLINK)
+\item cargarlos con snpStats
+\item seleccionar los genotipos de la regi\'on chr17:43670925-44329730
+\item hacer un PCA con los genotipos seleccionados
+\end{itemize}
 

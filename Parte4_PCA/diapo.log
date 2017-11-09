@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.10.5)  13 OCT 2017 12:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.10.5)  9 NOV 2017 17:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1010,6 +1010,11 @@ Overfull \hbox (49.12877pt too wide) in paragraph at lines 9--9
 ) [8
 
 ]
+\openout4 = `diapo.vrb'.
+
+ (./diapo.vrb) [9
+
+]
 \tf@nav=\write6
 \openout6 = `diapo.nav'.
 
@@ -1019,11 +1024,11 @@ Overfull \hbox (49.12877pt too wide) in paragraph at lines 9--9
 \tf@snm=\write8
 \openout8 = `diapo.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 175.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 175.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 191.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 191.
  (./diapo.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 175.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 175.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 191.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 191.
 Package rerunfilecheck Info: File `diapo.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
@@ -1031,13 +1036,13 @@ Package rerunfilecheck Info: File `diapo.out' has not changed.
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 175.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 191.
  ) 
 Here is how much of TeX's memory you used:
- 16717 strings out of 493029
- 318735 string characters out of 6136234
+ 16723 strings out of 493029
+ 318790 string characters out of 6136234
  389391 words of memory out of 5000000
- 19813 multiletter control sequences out of 15000+600000
+ 19815 multiletter control sequences out of 15000+600000
  10678 words of font info for 40 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,14n,55p,450b,551s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1047,10 +1052,10 @@ e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on diapo.pdf (8 pages, 958792 bytes).
+Output written on diapo.pdf (9 pages, 961209 bytes).
 PDF statistics:
- 263 PDF objects out of 1000 (max. 8388607)
- 232 compressed objects within 3 object streams
- 17 named destinations out of 1000 (max. 500000)
+ 289 PDF objects out of 1000 (max. 8388607)
+ 257 compressed objects within 3 object streams
+ 19 named destinations out of 1000 (max. 500000)
  63 words of extra memory for PDF output out of 10000 (max. 10000000)
 
