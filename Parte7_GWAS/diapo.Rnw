@@ -8,7 +8,7 @@ opts_chunk$set(size = 'footnotesize')
 @
 \title{Introducci\'on a la Gen\'omica \\ UNAL nov 2017}
 \author{Alejandro C\'aceres \\ ISGlobal, Barcelona}
-
+\date{}
 
 \maketitle
 % very important to use option [fragile] for frames containing code output!
@@ -16,7 +16,7 @@ opts_chunk$set(size = 'footnotesize')
 \begin{frame}[fragile]
 \frametitle{Genome-wide association studies}
 
-En los estudios de asociaci\'on gen\'etica se prueba la correlaci\'on (associaci\'on) entre los SNPs y un fenotipo de inter\'es. Siven para
+En los estudios de asociaci\'on gen\'etica se prueba la correlaci\'on (associaci\'on) entre los SNPs y un fenotipo de inter\'es. Siven para:
 
 \begin{itemize}
 \item identificar variantes gen\'eticos que den pistas sobre el desarrollo del fenotipo (enfermedad)
@@ -30,7 +30,7 @@ En los estudios de asociaci\'on gen\'etica se prueba la correlaci\'on (associaci
 
 \begin{frame}[fragile]
 \frametitle{Genome-wide association studies}
-Una Gran cantidad de GWAS se han hecho hasta el momento. Se puden consultar en GWAS catalog
+Una gran cantidad de GWAS se han hecho hasta el momento Se puden consultar en GWAS catalog
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=.5\linewidth]{gwasw.jpg}
@@ -46,7 +46,7 @@ Una Gran cantidad de GWAS se han hecho hasta el momento. Se puden consultar en G
 Una Gran cantidad de GWAS se han hecho hasta el momento. Se puden consultar en GWAS catalog
 \begin{figure}
 \begin{center}
-\includegraphics[width=.5\linewidth]{cat.png}
+\includegraphics[width=.7\linewidth]{cat.png}
 \end{center}
 \end{figure}
 \end{frame}
@@ -56,7 +56,7 @@ Una Gran cantidad de GWAS se han hecho hasta el momento. Se puden consultar en G
 Ejercicio: 
 \begin{itemize}
 \item buscar en el GWAS catalog los resultados de estudios de Alzheimer's.
-\item buscar cuales GWAS han encontrado variantes geneticos en BRCA1
+\item buscar cu\'ales GWAS han encontrado variantes gen\'eticos en BRCA1
 \end{itemize}
 
 \end{frame}
@@ -65,18 +65,18 @@ Ejercicio:
 \begin{frame}[fragile]
 \frametitle{Software}
 
-Han una gran cantidad de software para hacer estos an\'alisis
+Hay una gran cantidad de software para hacer estos an\'alisis
 \begin{itemize}
-\item PLINK, rapido pero por linea de comandos. Da poca flexibilidad 
+\item PLINK, r\'apido pero por linea de comandos. Da poca flexibilidad 
 \item snpStats mas lento pero se pueden aprovechar los paquetes de R
-\item codigo en R. Se puede usar cualquier tipo de test. Lo ideal es paralelizar.
-\item snpAssoc. Tambien en R. Para estudios con n\'umero limitado de SNPs pero prueba todos lo modelos geneticos y ajusta por el n\'umero de tests.
+\item c\'odigo en R. Se puede usar cualquier tipo de test. Lo ideal es paralelizar.
+\item snpAssoc. Tambi\'en en R. Para estudios con n\'umero limitado de SNPs pero prueba todos lo modelos gen\'eticos y ajusta por el n\'umero de tests.
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{PLINK}
-PLINK tiene unos datos de prueba y y unos ejemplos de analisis sobre ellos
+PLINK tiene unos datos de prueba y y unos ejemplos de an\'alisis sobre ellos
 
 \begin{figure}
 \begin{center}
@@ -91,7 +91,7 @@ PLINK tiene unos datos de prueba y y unos ejemplos de analisis sobre ellos
 
 \begin{frame}[fragile]
 \frametitle{snpStats}
-Veamos un ejmplo de analis con snpStats \\
+Veamos un ejmplo de an\'alisis con snpStats \\
 Cargamos los genotipos
 <<library>>=
 library("snpStats")
@@ -129,12 +129,12 @@ El Q-Q plot compara los p-valores obtenidos con los p-vlaores que esperar\'iamos
 <<plot1,fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
 qq.chisq(chi.squared(results), 1)
 @
-vamos que los p-vlaores obtenidos son t\'ipicamente mas altos, est\'an inflados.
+vemos que los p-vlaores obtenidos son t\'ipicamente mas altos, est\'an inflados.
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Correcci\'on por estratificaci\'on poblacional}
-Si el fenotipo se correlaciona con la ancestr\'ia y esta es detectada por los SNPs, los valores de correlaci\'on entre fenotipo y SNPs est\'an confundidos porla ancestr\'ia. Debemos corregir por la ancestr\'a como una covariable.   
+Si el fenotipo se correlaciona con la ancestr\'ia y esta es detectada por los SNPs, los valores de correlaci\'on entre fenotipo y SNPs est\'an confundidos por la ancestr\'ia. Debemos corregir por la ancestr\'a como una covariable.   
 
 \end{frame}
 
@@ -221,7 +221,7 @@ plot(p.value(resultsAdPCA), pvals[2,])
 Elementos importantes a considerar.
 
 \begin{itemize}
-\item Usamos p-valores para identificar los SNPs que mas se correlacionan con el fenotipo
+\item Usamos p-valores para identificar los SNPs que m\'as se correlacionan con el fenotipo
 \item la verdadera hip\'otesis del estudio es si existe \emph{alg\'un} SNP que se correlacione con el fenotipo
 \item si nos creemos SNPs con $p<0.05$ entonces siempre identificar\'iamos al rededor de $5\%$ de asociaciones significativas, que son realmente puro azar. 
 \item tememos que ajustar por el n\'umero de SNPs que probamos y creernos solo $p=0.05/nunSNPs$

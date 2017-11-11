@@ -56,16 +56,3 @@ head(t(pvals))
 ## ----plot5,fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'----
 plot(p.value(resultsAdPCA), pvals[2,])
 
-## ------------------------------------------------------------------------
-pvalsPop<-sapply(1:ncol(snpnum), function(j)
-{  
-  mod<-glm(phenos$caco~snpnum[,j]+phenos$pop, family="binomial")
-  summod<-summary(mod)
-  summod$coeff
-  summod$coeff[2,c(1,4)]
-})
-
-
-## ----plot6,fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'----
-plot(pvals[2,],pvalsPop[2,])
-
