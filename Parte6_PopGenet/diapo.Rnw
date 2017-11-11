@@ -151,9 +151,12 @@ image(LDYRI$R.squared, lwd=0)
 
 \begin{frame}[fragile]
 \frametitle{An\'alisis de mixtura de haplotipos}
-En un poblaci\'on mestiza los bloques de LD se mezcaln de acuerdo con la recombinacion de los individuos. Para analizar estas poblaciones hace falta de m\'etodos que ayuden ver los patrones de mixtura.
 
-Structure of haplotypes and local ancestry (Yongtau Guan) Genetics. 2014, 196(3): 625–642. 
+\begin{itemize}
+\item En un poblaci\'on mestiza los bloques de LD se mezcaln de acuerdo con la recombinacion de los individuos. Para analizar estas poblaciones hace falta de m\'etodos que ayuden ver los patrones de mixtura.
+
+\item Structure of haplotypes and local ancestry (Yongtau Guan) Genetics. 2014, 196(3): 625–642. 
+\end{itemize}
 \end{frame}
 
 
@@ -178,7 +181,7 @@ Software para hacer los an\'alisis
 Mapa cromos\'omico para identificar la dosis de ancestr\'ia en al poblaci\'on
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=.5\linewidth]{ELAIFig.jpg}
+\includegraphics[width=.55\linewidth]{ELAIFig.jpg}
 \end{center}
 \end{figure}
 
@@ -191,7 +194,7 @@ Mapa cromos\'omico para identificar la dosis de ancestr\'ia en al poblaci\'on
 \frametitle{Heterecigosidad}
 \begin{itemize}
 \item La heterocigosidad es la proporci\'on de heterocigotos que hay en una poblaci\'on.
-\item Mayor taza de heterocigosidad mayor es la variabilidad gen\'etica
+\item Mayor taza de heterocigosidad, mayor es la variabilidad gen\'etica
 \end{itemize}
 se calcula como 
 \begin{eqnarray}
@@ -314,7 +317,7 @@ boxplot(hetpop)
 \begin{frame}[fragile]
 \frametitle{\'Indice de fijaci\'on}
 
-El Fst (fixation index) que mide la proporcion de variabilidad genetica debida a diferencias entre poblaciones 
+El Fst (fixation index) que mide la proporci\'on de variabilidad gen\'etica debida a diferencias entre poblaciones 
 \begin{eqnarray}
 F_{ST}=\frac{\sigma^2_S}{\sigma^2_T}
 \end{eqnarray}
@@ -430,7 +433,7 @@ Livio Casarini  et al. Clin Endocrinol Metab, 2014, 99(11):E2412
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=.7\linewidth]{recomb.png}
+\includegraphics[width=.9\linewidth]{recomb.png}
 \end{center}
 \end{figure}
 
@@ -441,7 +444,7 @@ McVean et al. 2004. Science 304: 581-584.
 \begin{frame}[fragile]
 \frametitle{Selecci\'on}
 
-Haplotipos mas extensos de lo usual pueden dar señales de selecci\'on. 
+Haplotipos mas extensos de lo usual pueden dar senales de selecci\'on. 
 iHS propuesta por Voight et al. es una extensi\'on de EHH (extended haplotype homozygosity): los haplotipos alrededor de un SNP en selecci\'on tieneden a aumentar su homocigosidad r\'apidamente en comparaci\'on con la deriva gen\'etica.  
 
 \end{frame}

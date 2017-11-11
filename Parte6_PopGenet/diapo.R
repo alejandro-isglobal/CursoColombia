@@ -32,19 +32,6 @@ snpsGBR <- NewsnpsSNPstats[GBR,]
 LDGBR <- ld(snpsGBR, stats=c("D.prime", "R.squared"),depth=379)
 image(LDGBR$R.squared, lwd=0)
 
-## ----plotLDYRI, fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold', echo=FALSE----
-
-YRI <- pops=="YRI"
-snpsYRI <- NewsnpsSNPstats[YRI,]
-LDYRI <- ld(snpsYRI, stats=c("D.prime", "R.squared"),depth=379)
-image(LDGBR$R.squared, lwd=0)
-image(LDYRI$R.squared, lwd=0)
-
-## ----eval=FALSE----------------------------------------------------------
-## YRI <- pops=="YRI"
-## snpsYRI <- NewsnpsSNPstats[YRI,]
-## LDYRI <- ld(snpsYRI, stats=c("D.prime", "R.squared"),depth=379)
-## image(LDYRI$R.squared, lwd=0)
 
 ## ------------------------------------------------------------------------
 sumSnps <- col.summary(NewsnpsSNPstats)
@@ -66,25 +53,6 @@ p <- sumSnps$MAF
 ## ----fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'----
 hist(1-p^2-(1-p)^2)
 
-## ----echo=FALSE, fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'----
-lv <- levels(pops)
-x <- lv[26]
-x
-whichpop <- pops==x
-POPsnps <- NewsnpsSNPstats[whichpop,]
-sumSnps <- col.summary(POPsnps)
-p <- sumSnps$MAF
-hist(1-p^2-(1-p)^2)
-
-## ----eval=FALSE, fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'----
-## lv <- levels(pops)
-## x <- lv[26]
-## x
-## whichpop <- pops==x
-## POPsnps <- NewsnpsSNPstats[whichpop,]
-## sumSnps <- col.summary(POPsnps)
-## p <- sumSnps$MAF
-## hist(1-p^2-(1-p)^2)
 
 ## ------------------------------------------------------------------------
 hetpop<-sapply(levels(pops), function(x)
@@ -105,19 +73,4 @@ boxplot(hetpop)
 FST <- Fst(NewsnpsSNPstats,pops)
 hist(FST$Fst)
 
-## ----echo=FALSE,fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'----
-CEUandYRI <- pops%in%c("CEU","YRI")
-snpsCEUandYRI<-NewsnpsSNPstats[CEUandYRI,]
-popsCEUandYRI <- pops[CEUandYRI]
-FST <- Fst(snpsCEUandYRI,popsCEUandYRI)
-hist(FST$Fst)
-mean(FST$Fst, na.rm=TRUE)
-
-## ----eval=FALSE----------------------------------------------------------
-## CEUandYRI <- pops%in%c("CEU","YRI")
-## snpsCEUandYRI<-NewsnpsSNPstats[CEUandYRI,]
-## popsCEUandYRI <- pops[CEUandYRI]
-## FST <- Fst(snpsCEUandYRI,popsCEUandYRI)
-## hist(FST$Fst)
-## mean(FST$Fst, na.rm=TRUE)
 
